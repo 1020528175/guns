@@ -14,11 +14,11 @@ var Role = {
 Role.initColumn = function () {
     var columns = [
         {field: 'selectItem', radio: true},
-        {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
-        {title: '名称', field: 'name', align: 'center', valign: 'middle', sortable: true},
+        {title: 'id', field: 'ID', visible: false, align: 'center', valign: 'middle'},
+        {title: '名称', field: 'NAME', align: 'center', valign: 'middle', sortable: true},
         {title: '上级角色', field: 'pName', align: 'center', valign: 'middle', sortable: true},
         {title: '所在部门', field: 'deptName', align: 'center', valign: 'middle', sortable: true},
-        {title: '别名', field: 'tips', align: 'center', valign: 'middle', sortable: true}]
+        {title: '别名', field: 'TIPS', align: 'center', valign: 'middle', sortable: true}]
     return columns;
 };
 
@@ -63,7 +63,7 @@ Role.openChangeRole = function () {
             area: ['800px', '450px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/role/role_edit/' + this.seItem.id
+            content: Feng.ctxPath + '/role/role_edit/' + this.seItem.ID
         });
         this.layerIndex = index;
     }
@@ -82,11 +82,11 @@ Role.delRole = function () {
             }, function (data) {
                 Feng.error("删除失败!" + data.responseJSON.message + "!");
             });
-            ajax.set("roleId", Role.seItem.id);
+            ajax.set("roleId", Role.seItem.ID);
             ajax.start();
         };
 
-        Feng.confirm("是否删除角色 " + Role.seItem.name + "?",operation);
+        Feng.confirm("是否删除角色 " + Role.seItem.NAME + "?",operation);
     }
 };
 
@@ -101,7 +101,7 @@ Role.assign = function () {
             area: ['300px', '450px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/role/role_assign/' + this.seItem.id
+            content: Feng.ctxPath + '/role/role_assign/' + this.seItem.ID
         });
         this.layerIndex = index;
     }

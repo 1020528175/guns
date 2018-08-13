@@ -48,7 +48,9 @@ public class DefaultFastjsonConfig {
                 SerializerFeature.WriteMapNullValue,
                 SerializerFeature.WriteEnumUsingToString
         );
-        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
+        //修改,设置全局时间为精确到天,页面列表显示不带时分秒
+        //fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
+        fastJsonConfig.setDateFormat("yyyy-MM-dd");
         ValueFilter valueFilter = new ValueFilter() {
             public Object process(Object o, String s, Object o1) {
                 if (null == o1) {

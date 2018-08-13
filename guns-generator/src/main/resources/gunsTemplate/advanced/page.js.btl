@@ -16,9 +16,9 @@ ${context.bizEnBigName}.initColumn = function () {
         {field: 'selectItem', radio: true},
         <% for(item in table.fields!){ %>
         <% if(itemLP.last != true){ %>
-            {title: '${item.comment}', field: '${item.propertyName}', visible: true, align: 'center', valign: 'middle'},
+            {title: '${item.comment}', field: '${strutil.toUpperCase (item.propertyName)}', visible: true, align: 'center', valign: 'middle'},
         <% }else{ %>
-            {title: '${item.comment}', field: '${item.propertyName}', visible: true, align: 'center', valign: 'middle'}
+            {title: '${item.comment}', field: '${ strutil.toUpperCase (item.propertyName)}', visible: true, align: 'center', valign: 'middle'}
         <% }} %>
     ];
 };
@@ -46,9 +46,10 @@ ${context.bizEnBigName}.openAdd${context.bizEnBigName} = function () {
         title: '添加${context.bizChName}',
         area: ['800px', '420px'], //宽高
         fix: false, //不固定
-        maxmin: true,
+        //maxmin: true,
         content: Feng.ctxPath + '/${context.bizEnName}/${context.bizEnName}_add'
     });
+    layer.full(index);
     this.layerIndex = index;
 };
 
@@ -62,9 +63,10 @@ ${context.bizEnBigName}.open${context.bizEnBigName}Detail = function () {
             title: '${context.bizChName}详情',
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
-            maxmin: true,
-            content: Feng.ctxPath + '/${context.bizEnName}/${context.bizEnName}_update/' + ${context.bizEnBigName}.seItem.id
+            //maxmin: true,
+            content: Feng.ctxPath + '/${context.bizEnName}/${context.bizEnName}_update/' + ${context.bizEnBigName}.seItem.ID
         });
+        layer.full(index);
         this.layerIndex = index;
     }
 };
@@ -80,7 +82,7 @@ ${context.bizEnBigName}.delete = function () {
         }, function (data) {
             Feng.error("删除失败!" + data.responseJSON.message + "!");
         });
-        ajax.set("${context.bizEnName}Id",this.seItem.id);
+        ajax.set("${context.bizEnName}Id",this.seItem.ID);
         ajax.start();
     }
 };
@@ -97,6 +99,6 @@ ${context.bizEnBigName}.search = function () {
 $(function () {
     var defaultColunms = ${context.bizEnBigName}.initColumn();
     var table = new BSTable(${context.bizEnBigName}.id, "/${context.bizEnName}/list", defaultColunms);
-    table.setPaginationType("client");
+    table.setPaginationType("server");
     ${context.bizEnBigName}.table = table.init();
 });

@@ -33,7 +33,7 @@ public interface RoleMapper extends BaseMapper<Role> {
      * @return
      * @date 2017年2月13日 下午7:57:51
      */
-    int deleteRolesById(@Param("roleId") Integer roleId);
+    int deleteRolesById(@Param("roleId") String roleId);
 
     /**
      * 获取角色列表树

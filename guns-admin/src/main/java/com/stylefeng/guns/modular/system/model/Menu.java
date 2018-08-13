@@ -24,8 +24,8 @@ public class Menu extends Model<Menu> {
     /**
      * 主键id
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Long id;
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
     /**
      * 菜单编号
      */
@@ -59,11 +59,11 @@ public class Menu extends Model<Menu> {
     /**
      * 菜单层级
      */
-    private Integer levels;
+    private String levels;
     /**
      * 是否是菜单（1：是  0：不是）
      */
-    private Integer ismenu;
+    private String ismenu;
     /**
      * 备注
      */
@@ -71,18 +71,18 @@ public class Menu extends Model<Menu> {
     /**
      * 菜单状态 :  1:启用   0:不启用
      */
-    private Integer status;
+    private String status;
     /**
      * 是否打开:    1:打开   0:不打开
      */
-    private Integer isopen;
+    private String isopen;
 
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -142,19 +142,19 @@ public class Menu extends Model<Menu> {
         this.num = num;
     }
 
-    public Integer getLevels() {
+    public String getLevels() {
         return levels;
     }
 
-    public void setLevels(Integer levels) {
+    public void setLevels(String levels) {
         this.levels = levels;
     }
 
-    public Integer getIsmenu() {
+    public String getIsmenu() {
         return ismenu;
     }
 
-    public void setIsmenu(Integer ismenu) {
+    public void setIsmenu(String ismenu) {
         this.ismenu = ismenu;
     }
 
@@ -166,19 +166,19 @@ public class Menu extends Model<Menu> {
         this.tips = tips;
     }
 
-    public Integer getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
-    public Integer getIsopen() {
+    public String getIsopen() {
         return isopen;
     }
 
-    public void setIsopen(Integer isopen) {
+    public void setIsopen(String isopen) {
         this.isopen = isopen;
     }
 

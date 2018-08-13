@@ -12,7 +12,7 @@ import java.util.Date;
  */
 public class UserDto{
 
-	private Integer id;
+	private String id;
 	private String account;
 	private String password;
 	private String salt;
@@ -24,18 +24,18 @@ public class UserDto{
 	private String email;
 	private String phone;
 	private String roleid;
-	private Integer deptid;
-	private Integer status;
+	private String deptid;
+	private String status;
 	private Date createtime;
 	private Integer version;
 	private String avatar;
 
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -111,19 +111,19 @@ public class UserDto{
 		this.roleid = roleid;
 	}
 
-	public Integer getDeptid() {
+	public String getDeptid() {
 		return deptid;
 	}
 
-	public void setDeptid(Integer deptid) {
+	public void setDeptid(String deptid) {
 		this.deptid = deptid;
 	}
 
-	public Integer getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

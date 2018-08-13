@@ -30,7 +30,7 @@
         from sys_menu
         where status = 1
         <if test="condition != null and condition != ''">
-            and (name like CONCAT('%',#{condition},'%') or code like CONCAT('%',#{condition},'%'))
+           and (name like  '%${condition}%'  or code like  '%${condition}%')
         </if>
         <if test="level != null and level != ''">
             and levels = #{level}
@@ -47,8 +47,8 @@
         m1.id AS id,
         (
         CASE
-        WHEN (m2.id = 0 OR m2.id IS NULL) THEN
-        0
+        WHEN (m2.id = '0' OR m2.id IS NULL) THEN
+        '0'
         ELSE
         m2.id
         END
@@ -57,7 +57,7 @@
         AS NAME,
         (
         CASE
-        WHEN (m2.id = 0 OR m2.id IS NULL) THEN
+        WHEN (m2.id = '0' OR m2.id IS NULL) THEN
         'true'
         ELSE
         'false'
@@ -75,8 +75,8 @@
         m1.id AS id,
         (
         CASE
-        WHEN (m2.id = 0 OR m2.id IS NULL) THEN
-        0
+        WHEN (m2.id = '0' OR m2.id IS NULL) THEN
+        '0'
         ELSE
         m2.id
         END
@@ -84,7 +84,7 @@
         m1. NAME AS NAME,
         (
         CASE
-        WHEN (m2.id = 0 OR m2.id IS
+        WHEN (m2.id = '0' OR m2.id IS
         NULL) THEN
         'true'
         ELSE
@@ -93,7 +93,7 @@
         ) as isOpen,
         (
         CASE
-        WHEN (m3.ID = 0 OR m3.ID
+        WHEN (m3.ID = '0' OR m3.ID
         IS NULL) THEN
         'false'
         ELSE
@@ -138,8 +138,8 @@
         m1.icon AS icon,
         (
         CASE
-        WHEN (m2.id = 0 OR m2.id IS NULL) THEN
-        0
+        WHEN (m2.id = '0' OR m2.id IS NULL) THEN
+        '0'
         ELSE
         m2.id
         END

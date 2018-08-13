@@ -24,8 +24,8 @@ public class Notice extends Model<Notice> {
     /**
      * 主键
      */
-	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	@TableId(value="id", type= IdType.UUID)
+	private String id;
     /**
      * 标题
      */
@@ -45,14 +45,14 @@ public class Notice extends Model<Notice> {
     /**
      * 创建人
      */
-	private Integer creater;
+	private String creater;
 
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -88,11 +88,11 @@ public class Notice extends Model<Notice> {
 		this.createtime = createtime;
 	}
 
-	public Integer getCreater() {
+	public String getCreater() {
 		return creater;
 	}
 
-	public void setCreater(Integer creater) {
+	public void setCreater(String creater) {
 		this.creater = creater;
 	}
 

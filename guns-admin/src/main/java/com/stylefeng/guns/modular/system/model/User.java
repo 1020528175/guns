@@ -24,8 +24,8 @@ public class User extends Model<User> {
     /**
      * 主键id
      */
-	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	@TableId(value="id", type= IdType.UUID)
+	private String id;
     /**
      * 头像
      */
@@ -69,11 +69,11 @@ public class User extends Model<User> {
     /**
      * 部门id
      */
-	private Integer deptid;
+	private String deptid;
     /**
      * 状态(1：启用  2：冻结  3：删除）
      */
-	private Integer status;
+	private String status;
     /**
      * 创建时间
      */
@@ -84,11 +84,11 @@ public class User extends Model<User> {
 	private Integer version;
 
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -172,19 +172,19 @@ public class User extends Model<User> {
 		this.roleid = roleid;
 	}
 
-	public Integer getDeptid() {
+	public String getDeptid() {
 		return deptid;
 	}
 
-	public void setDeptid(Integer deptid) {
+	public void setDeptid(String deptid) {
 		this.deptid = deptid;
 	}
 
-	public Integer getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Integer status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

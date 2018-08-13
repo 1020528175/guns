@@ -14,11 +14,11 @@ var Notice = {
 Notice.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-        {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
-        {title: '标题', field: 'title', align: 'center', valign: 'middle', sortable: true},
-        {title: '内容', field: 'content', align: 'center', valign: 'middle', sortable: true},
+        {title: 'id', field: 'ID', visible: false, align: 'center', valign: 'middle'},
+        {title: '标题', field: 'TITLE', align: 'center', valign: 'middle', sortable: true},
+        {title: '内容', field: 'CONTENT', align: 'center', valign: 'middle', sortable: true},
         {title: '发布者', field: 'createrName', align: 'center', valign: 'middle', sortable: true},
-        {title: '创建时间', field: 'createtime', align: 'center', valign: 'middle', sortable: true}
+        {title: '创建时间', field: 'CREATETIME', align: 'center', valign: 'middle', sortable: true}
     ];
 };
 
@@ -62,7 +62,7 @@ Notice.openNoticeDetail = function () {
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/notice/notice_update/' + Notice.seItem.id
+            content: Feng.ctxPath + '/notice/notice_update/' + Notice.seItem.ID
         });
         this.layerIndex = index;
     }
@@ -81,11 +81,11 @@ Notice.delete = function () {
             }, function (data) {
                 Feng.error("删除失败!" + data.responseJSON.message + "!");
             });
-            ajax.set("noticeId", Notice.seItem.id);
+            ajax.set("noticeId", Notice.seItem.ID);
             ajax.start();
         };
 
-        Feng.confirm("是否删除通知 " + Notice.seItem.title + "?", operation);
+        Feng.confirm("是否删除通知 " + Notice.seItem.TITLE + "?", operation);
     }
 };
 

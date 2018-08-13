@@ -78,7 +78,7 @@ public class UserMgrController extends BaseController {
     //@RequiresPermissions("/mgr/role_assign")  //利用shiro自带的权限检查
     @Permission
     @RequestMapping("/role_assign/{userId}")
-    public String roleAssign(@PathVariable Integer userId, Model model) {
+    public String roleAssign(@PathVariable String userId, Model model) {
         if (ToolUtil.isEmpty(userId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -93,7 +93,7 @@ public class UserMgrController extends BaseController {
      */
     @Permission
     @RequestMapping("/user_edit/{userId}")
-    public String userEdit(@PathVariable Integer userId, Model model) {
+    public String userEdit(@PathVariable String userId, Model model) {
         if (ToolUtil.isEmpty(userId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -111,7 +111,7 @@ public class UserMgrController extends BaseController {
      */
     @RequestMapping("/user_info")
     public String userInfo(Model model) {
-        Integer userId = ShiroKit.getUser().getId();
+    	String userId = ShiroKit.getUser().getId();
         if (ToolUtil.isEmpty(userId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -140,7 +140,7 @@ public class UserMgrController extends BaseController {
         if (!newPwd.equals(rePwd)) {
             throw new GunsException(BizExceptionEnum.TWO_PWD_NOT_MATCH);
         }
-        Integer userId = ShiroKit.getUser().getId();
+        String userId = ShiroKit.getUser().getId();
         User user = userService.selectById(userId);
         String oldMd5 = ShiroKit.md5(oldPwd, user.getSalt());
         if (user.getPassword().equals(oldMd5)) {
@@ -159,7 +159,7 @@ public class UserMgrController extends BaseController {
     @RequestMapping("/list")
     @Permission
     @ResponseBody
-    public Object list(@RequestParam(required = false) String name, @RequestParam(required = false) String beginTime, @RequestParam(required = false) String endTime, @RequestParam(required = false) Integer deptid) {
+    public Object list(@RequestParam(required = false) String name, @RequestParam(required = false) String beginTime, @RequestParam(required = false) String endTime, @RequestParam(required = false) String deptid) {
         if (ShiroKit.isAdmin()) {
             List<Map<String, Object>> users = userService.selectUsers(null, name, beginTime, endTime, deptid);
             return new UserWarpper(users).warp();
@@ -235,7 +235,7 @@ public class UserMgrController extends BaseController {
     @BussinessLog(value = "删除管理员", key = "userId", dict = UserDict.class)
     @Permission
     @ResponseBody
-    public Tip delete(@RequestParam Integer userId) {
+    public Tip delete(@RequestParam String userId) {
         if (ToolUtil.isEmpty(userId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -253,7 +253,7 @@ public class UserMgrController extends BaseController {
      */
     @RequestMapping("/view/{userId}")
     @ResponseBody
-    public User view(@PathVariable Integer userId) {
+    public User view(@PathVariable String userId) {
         if (ToolUtil.isEmpty(userId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -268,7 +268,7 @@ public class UserMgrController extends BaseController {
     @BussinessLog(value = "重置管理员密码", key = "userId", dict = UserDict.class)
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public Tip reset(@RequestParam Integer userId) {
+    public Tip reset(@RequestParam String userId) {
         if (ToolUtil.isEmpty(userId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -287,7 +287,7 @@ public class UserMgrController extends BaseController {
     @BussinessLog(value = "冻结用户", key = "userId", dict = UserDict.class)
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public Tip freeze(@RequestParam Integer userId) {
+    public Tip freeze(@RequestParam String userId) {
         if (ToolUtil.isEmpty(userId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -307,7 +307,7 @@ public class UserMgrController extends BaseController {
     @BussinessLog(value = "解除冻结用户", key = "userId", dict = UserDict.class)
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public Tip unfreeze(@RequestParam Integer userId) {
+    public Tip unfreeze(@RequestParam String userId) {
         if (ToolUtil.isEmpty(userId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -323,7 +323,7 @@ public class UserMgrController extends BaseController {
     @BussinessLog(value = "分配角色", key = "userId,roleIds", dict = UserDict.class)
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public Tip setRole(@RequestParam("userId") Integer userId, @RequestParam("roleIds") String roleIds) {
+    public Tip setRole(@RequestParam("userId") String userId, @RequestParam("roleIds") String roleIds) {
         if (ToolUtil.isOneEmpty(userId, roleIds)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -356,13 +356,13 @@ public class UserMgrController extends BaseController {
     /**
      * 判断当前登录的用户是否有操作这个用户的权限
      */
-    private void assertAuth(Integer userId) {
+    private void assertAuth(String userId) {
         if (ShiroKit.isAdmin()) {
             return;
         }
-        List<Integer> deptDataScope = ShiroKit.getDeptDataScope();
+        List<String> deptDataScope = ShiroKit.getDeptDataScope();
         User user = this.userService.selectById(userId);
-        Integer deptid = user.getDeptid();
+        String deptid = user.getDeptid();
         if (deptDataScope.contains(deptid)) {
             return;
         } else {

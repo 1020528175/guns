@@ -27,8 +27,8 @@ public class WebGeneratorConfig extends AbstractGeneratorConfig {
         /**
          * 数据库配置
          */
-        dataSourceConfig.setDbType(DbType.MYSQL);
-        dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
+        dataSourceConfig.setDbType(DbType.ORACLE);
+        dataSourceConfig.setDriverName("oracle.jdbc.OracleDriver");
         dataSourceConfig.setUsername(genQo.getUserName());
         dataSourceConfig.setPassword(genQo.getPassword());
         dataSourceConfig.setUrl(genQo.getUrl());

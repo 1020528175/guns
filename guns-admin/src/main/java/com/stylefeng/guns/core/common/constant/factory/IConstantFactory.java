@@ -18,7 +18,7 @@ public interface IConstantFactory {
      * @author stylefeng
      * @Date 2017/5/9 23:41
      */
-    String getUserNameById(Integer userId);
+    String getUserNameById(String userId);
 
     /**
      * 根据用户id获取用户账号
@@ -26,7 +26,7 @@ public interface IConstantFactory {
      * @author stylefeng
      * @date 2017年5月16日21:55:371
      */
-    String getUserAccountById(Integer userId);
+    String getUserAccountById(String userId);
 
     /**
      * 通过角色ids获取角色名称
@@ -36,17 +36,17 @@ public interface IConstantFactory {
     /**
      * 通过角色id获取角色名称
      */
-    String getSingleRoleName(Integer roleId);
+    String getSingleRoleName(String roleId);
 
     /**
      * 通过角色id获取角色英文名称
      */
-    String getSingleRoleTip(Integer roleId);
+    String getSingleRoleTip(String roleId);
 
     /**
      * 获取部门名称
      */
-    String getDeptName(Integer deptId);
+    String getDeptName(String deptId);
 
     /**
      * 获取菜单的名称们(多个)
@@ -56,7 +56,7 @@ public interface IConstantFactory {
     /**
      * 获取菜单名称
      */
-    String getMenuName(Long menuId);
+    String getMenuName(String menuId);
 
     /**
      * 获取菜单名称通过编号
@@ -66,37 +66,37 @@ public interface IConstantFactory {
     /**
      * 获取字典名称
      */
-    String getDictName(Integer dictId);
+    String getDictName(String dictId);
 
     /**
      * 获取通知标题
      */
-    String getNoticeTitle(Integer dictId);
+    String getNoticeTitle(String dictId);
 
     /**
      * 根据字典名称和字典中的值获取对应的名称
      */
-    String getDictsByName(String name, Integer val);
+    String getDictsByName(String name, String val);
 
     /**
      * 获取性别名称
      */
-    String getSexName(Integer sex);
+    String getSexName(String sex);
 
     /**
      * 获取用户登录状态
      */
-    String getStatusName(Integer status);
+    String getStatusName(String status);
 
     /**
      * 获取菜单状态
      */
-    String getMenuStatusName(Integer status);
+    String getMenuStatusName(String status);
 
     /**
      * 查询字典
      */
-    List<Dict> findInDict(Integer id);
+    List<Dict> findInDict(String id);
 
     /**
      * 获取被缓存的对象(用户删除业务)
@@ -106,11 +106,12 @@ public interface IConstantFactory {
     /**
      * 获取子部门id
      */
-    List<Integer> getSubDeptId(Integer deptid);
+    List<String> getSubDeptId(String deptid);
 
     /**
      * 获取所有父部门id
      */
-    List<Integer> getParentDeptIds(Integer deptid);
+    List<String> getParentDeptIds(String deptid);
+
 
 }

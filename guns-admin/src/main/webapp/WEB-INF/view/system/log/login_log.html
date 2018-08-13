@@ -9,11 +9,12 @@
                 <div class="row row-lg">
                     <div class="col-sm-12">
                         <div class="row">
+                        
                             <div class="col-sm-3">
-                                <#TimeCon id="beginTime" name="开始时间" isTime="false" pattern="YYYY-MM-DD" />
+                           		 <#TimeCon id="beginTime" name="开始时间" isTime="false"/>
                             </div>
                             <div class="col-sm-3">
-                                <#TimeCon id="endTime" name="结束时间" isTime="false" pattern="YYYY-MM-DD" />
+                            <#TimeCon id="endTime" name="结束时间" isTime="false"/>
                             </div>
                             <div class="col-sm-3">
                                 <#NameCon id="logName" name="日志名称" />
@@ -33,4 +34,12 @@
     </div>
 </div>
 <script src="${ctxPath}/static/modular/system/log/login_log.js"></script>
+<script>
+    laydate.render({
+        elem: '#beginTime'
+    });
+    laydate.render({
+        elem: '#endTime'
+    });
+</script>
 @}

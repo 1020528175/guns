@@ -12,13 +12,12 @@ import java.sql.SQLException;
  */
 public class DruidProperties {
 
-    private String url = "jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull";
-
+	 private String url = "jdbc:oracle:thin:@192.168.100.1933:1521:orcl";
     private String username = "root";
 
     private String password = "root";
 
-    private String driverClassName = "com.mysql.cj.jdbc.Driver";
+    private String driverClassName = "oracle.jdbc.OracleDriver";
 
     private Integer initialSize = 2;
 
@@ -32,7 +31,7 @@ public class DruidProperties {
 
     private Integer minEvictableIdleTimeMillis = 300000;
 
-    private String validationQuery = "SELECT 'x'";
+    private String validationQuery = "SELECT 'x' from dual";
 
     private Boolean testWhileIdle = true;
 

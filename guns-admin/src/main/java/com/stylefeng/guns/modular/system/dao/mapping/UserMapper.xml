@@ -41,15 +41,18 @@
 		from sys_user
 		where status != 3
 		<if test="name != null and name != ''">
-			and (phone like CONCAT('%',#{name},'%')
-			or account like CONCAT('%',#{name},'%')
-			or name like CONCAT('%',#{name},'%'))
+			and (phone like '%${name}%'
+			or account like '%${name}%'
+			or name like '%${name}%')
 		</if>
 		<if test="deptid != null and deptid != 0">
 			and (deptid = #{deptid} or deptid in ( select id from sys_dept where pids like CONCAT('%[', #{deptid}, ']%') ))
 		</if>
-		<if test="beginTime != null and beginTime != '' and endTime != null and endTime != ''">
-			and (createTime between CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime},' 23:59:59'))
+		<if test="beginTime != null and beginTime != '' ">
+			and createTime   &gt; to_date(#{beginTime},'YYYY-MM-DD')
+		</if>
+		<if test=" endTime != null and endTime != ''">
+			 and createTime    &lt;  to_date(#{endTime},'YYYY-MM-DD')
 		</if>
 	</select>
 

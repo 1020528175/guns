@@ -13,20 +13,20 @@ public class ShiroUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer id;          // 主键ID
+    public String id;          // 主键ID
     public String account;      // 账号
     public String name;         // 姓名
-    public Integer deptId;      // 部门id
-    public List<Integer> roleList; // 角色集
+    public String deptId;      // 部门id
+    public List<String> roleList; // 角色集
     public String deptName;        // 部门名称
     public List<String> roleNames; // 角色名称集
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -46,19 +46,19 @@ public class ShiroUser implements Serializable {
         this.name = name;
     }
 
-    public Integer getDeptId() {
+    public String getDeptId() {
         return deptId;
     }
 
-    public void setDeptId(Integer deptId) {
+    public void setDeptId(String deptId) {
         this.deptId = deptId;
     }
 
-    public List<Integer> getRoleList() {
+    public List<String> getRoleList() {
         return roleList;
     }
 
-    public void setRoleList(List<Integer> roleList) {
+    public void setRoleList(List<String> roleList) {
         this.roleList = roleList;
     }
 

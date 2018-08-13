@@ -55,11 +55,12 @@ public class SqlConfig {
         menu.setUrl("/" + contextConfig.getBizEnName());
         menu.setNum(99);
 
-        if (parentMenuName.equals("顶级")) {
+      /*  if (parentMenuName.equals("顶级")) {
             menu.setLevels(1);
         } else {
             menu.setLevels(2);
-        }
+        }*/
+        menu.setLevels(111);     
         menu.setIsmenu(IsMenu.YES.getCode());
         menu.setStatus(1);
         menu.setIsopen(0);
@@ -122,7 +123,7 @@ public class SqlConfig {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = connection.prepareStatement("select * from sys_menu where name like ?");
-            preparedStatement.setString(1, "%" + parentMenuName + "%");
+            preparedStatement.setString(1,   parentMenuName );
             ResultSet results = preparedStatement.executeQuery();
             while (results.next()) {
                 String pcode = results.getString("code");

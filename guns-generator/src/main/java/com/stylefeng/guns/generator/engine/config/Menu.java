@@ -58,7 +58,7 @@ public class Menu extends Model<Menu> {
     /**
      * 是否是菜单（1：是  0：不是）
      */
-    private Integer ismenu;
+    private String ismenu;
     /**
      * 备注
      */
@@ -145,11 +145,11 @@ public class Menu extends Model<Menu> {
         this.levels = levels;
     }
 
-    public Integer getIsmenu() {
+    public String getIsmenu() {
         return ismenu;
     }
 
-    public void setIsmenu(Integer ismenu) {
+    public void setIsmenu(String ismenu) {
         this.ismenu = ismenu;
     }
 

@@ -1,7 +1,6 @@
 package com.stylefeng.guns.core.node;
 
 import com.stylefeng.guns.core.constant.IsMenu;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.*;
 
@@ -35,7 +34,7 @@ public class MenuNode implements Comparable {
     /**
      * 按钮级别
      */
-    private Integer ismenu;
+    private String ismenu;
 
     /**
      * 按钮的排序
@@ -140,11 +139,11 @@ public class MenuNode implements Comparable {
         this.num = num;
     }
 
-    public Integer getIsmenu() {
+    public String getIsmenu() {
         return ismenu;
     }
 
-    public void setIsmenu(Integer ismenu) {
+    public void setIsmenu(String ismenu) {
         this.ismenu = ismenu;
     }
 
@@ -196,9 +195,10 @@ public class MenuNode implements Comparable {
             return nodes;
         }
         //剔除非菜单
-        nodes.removeIf(node -> node.getIsmenu() != IsMenu.YES.getCode());
+        nodes.removeIf(node -> !node.getIsmenu().equals(IsMenu.YES.getCode()));
         //对菜单排序，返回列表按菜单等级，序号的排序方式排列
         Collections.sort(nodes);
+        nodes.get(nodes.size() - 1);
         return mergeList(nodes, nodes.get(nodes.size() - 1).getLevels(), null);
     }
 

@@ -27,7 +27,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
     @Override
     public void addDict(String dictCode,String dictName,String dictTips, String dictValues) {
         //判断有没有该字典
-        List<Dict> dicts = dictMapper.selectList(new EntityWrapper<Dict>().eq("code", dictCode).and().eq("pid", 0));
+        List<Dict> dicts = dictMapper.selectList(new EntityWrapper<Dict>().eq("code", dictCode).and().eq("pid", '0'));
         if (dicts != null && dicts.size() > 0) {
             throw new GunsException(BizExceptionEnum.DICT_EXISTED);
         }
@@ -40,8 +40,8 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
         dict.setName(dictName);
         dict.setCode(dictCode);
         dict.setTips(dictTips);
-        dict.setNum(0);
-        dict.setPid(0);
+        dict.setNum("0");
+        dict.setPid("0");
         this.dictMapper.insert(dict);
 
         //添加字典条目
@@ -55,7 +55,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
             itemDict.setName(name);
 
             try {
-                itemDict.setNum(Integer.valueOf(num));
+                itemDict.setNum(num);
             } catch (NumberFormatException e) {
                 throw new GunsException(BizExceptionEnum.DICT_MUST_BE_NUMBER);
             }
@@ -64,7 +64,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
     }
 
     @Override
-    public void editDict(Integer dictId,String dictCode, String dictName,String dictTips, String dicts) {
+    public void editDict(String dictId,String dictCode, String dictName,String dictTips, String dicts) {
         //删除之前的字典
         this.delteDict(dictId);
 
@@ -73,7 +73,7 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
     }
 
     @Override
-    public void delteDict(Integer dictId) {
+    public void delteDict(String dictId) {
         //删除这个字典的子词典
         Wrapper<Dict> dictEntityWrapper = new EntityWrapper<>();
         dictEntityWrapper = dictEntityWrapper.eq("pid", dictId);

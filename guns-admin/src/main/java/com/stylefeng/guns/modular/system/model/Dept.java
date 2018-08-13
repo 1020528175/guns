@@ -23,8 +23,8 @@ public class Dept extends Model<Dept> {
     /**
      * 主键id
      */
-	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	@TableId(value="id", type= IdType.UUID)
+	private String id;
     /**
      * 排序
      */
@@ -32,7 +32,7 @@ public class Dept extends Model<Dept> {
     /**
      * 父部门id
      */
-	private Integer pid;
+	private String pid;
     /**
      * 父级ids
      */
@@ -55,11 +55,11 @@ public class Dept extends Model<Dept> {
 	private Integer version;
 
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -71,11 +71,11 @@ public class Dept extends Model<Dept> {
 		this.num = num;
 	}
 
-	public Integer getPid() {
+	public String getPid() {
 		return pid;
 	}
 
-	public void setPid(Integer pid) {
+	public void setPid(String pid) {
 		this.pid = pid;
 	}
 

@@ -1,7 +1,7 @@
 package com.stylefeng.guns.modular.system.warpper;
 
-import com.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 import com.stylefeng.guns.core.base.warpper.BaseControllerWarpper;
+import com.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 import com.stylefeng.guns.core.util.ToolUtil;
 
 import java.util.Map;
@@ -21,7 +21,7 @@ public class DeptWarpper extends BaseControllerWarpper {
     @Override
     public void warpTheMap(Map<String, Object> map) {
 
-        Integer pid = (Integer) map.get("pid");
+    	String pid = (String) map.get("pid");
 
         if (ToolUtil.isEmpty(pid) || pid.equals(0)) {
             map.put("pName", "--");

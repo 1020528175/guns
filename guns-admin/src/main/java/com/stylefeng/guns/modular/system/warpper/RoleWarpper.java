@@ -1,7 +1,7 @@
 package com.stylefeng.guns.modular.system.warpper;
 
-import com.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 import com.stylefeng.guns.core.base.warpper.BaseControllerWarpper;
+import com.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -20,8 +20,8 @@ public class RoleWarpper extends BaseControllerWarpper {
 
     @Override
     public void warpTheMap(Map<String, Object> map) {
-        map.put("pName", ConstantFactory.me().getSingleRoleName((Integer) map.get("pid")));
-        map.put("deptName", ConstantFactory.me().getDeptName((Integer) map.get("deptid")));
+        map.put("pName", ConstantFactory.me().getSingleRoleName((String) map.get("PID")));
+        map.put("deptName", ConstantFactory.me().getDeptName((String) map.get("DEPTID")));
     }
 
 }

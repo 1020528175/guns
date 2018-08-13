@@ -8,22 +8,22 @@ package com.stylefeng.guns.core.constant;
  */
 public enum IsMenu {
 
-    YES(1, "是"),
-    NO(0, "不是"); //不是菜单的是按钮
+    YES("1", "是"),
+    NO("0", "不是");//不是菜单的是按钮
 
-    int code;
+	String code;
     String message;
 
-    IsMenu(int code, String message) {
+    IsMenu(String code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
-    public void setCode(int code) {
+    public void setCode(String code) {
         this.code = code;
     }
 
@@ -35,12 +35,12 @@ public enum IsMenu {
         this.message = message;
     }
 
-    public static String valueOf(Integer status) {
+    public static String valueOfs(String status) {
         if (status == null) {
             return "";
         } else {
             for (IsMenu s : IsMenu.values()) {
-                if (s.getCode() == status) {
+                if (s.getCode().equals(status)) {
                     return s.getMessage();
                 }
             }

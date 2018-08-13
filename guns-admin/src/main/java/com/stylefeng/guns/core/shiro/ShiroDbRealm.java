@@ -41,12 +41,12 @@ public class ShiroDbRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         IShiro shiroFactory = ShiroFactroy.me();
         ShiroUser shiroUser = (ShiroUser) principals.getPrimaryPrincipal();
-        List<Integer> roleList = shiroUser.getRoleList();
+        List<String> roleList = shiroUser.getRoleList();
 
         Set<String> permissionSet = new HashSet<>();
         Set<String> roleNameSet = new HashSet<>();
 
-        for (Integer roleId : roleList) {
+        for (String roleId : roleList) {
             List<String> permissions = shiroFactory.findPermissionsByRoleId(roleId);
             if (permissions != null) {
                 for (String permission : permissions) {

@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.BufferedReader;
+import java.io.Reader;
+import java.sql.Clob;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +62,7 @@ public class NoticeController extends BaseController {
      * 跳转到修改通知
      */
     @RequestMapping("/notice_update/{noticeId}")
-    public String noticeUpdate(@PathVariable Integer noticeId, Model model) {
+    public String noticeUpdate(@PathVariable String noticeId, Model model) {
         Notice notice = this.noticeService.selectById(noticeId);
         model.addAttribute("notice",notice);
         LogObjectHolder.me().set(notice);
@@ -72,6 +75,28 @@ public class NoticeController extends BaseController {
     @RequestMapping("/hello")
     public String hello() {
         List<Map<String, Object>> notices = noticeService.list(null);
+        
+        for (int i = 0; i < notices.size(); i++) {
+        	Clob clob =(Clob)notices.get(i).get("CONTENT");
+            Reader instream;
+			try {
+				instream = clob.getCharacterStream();
+				BufferedReader br = new BufferedReader(instream);
+				String str=br.readLine();
+				StringBuffer sb=new StringBuffer();
+				while (str!=null) {
+					sb.append(str);
+					str=br.readLine();
+				}
+				String content=sb.toString();
+				notices.get(i).put("content",content);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+       
+
         super.setAttr("noticeList",notices);
         return "/blackboard.html";
     }
@@ -108,7 +133,7 @@ public class NoticeController extends BaseController {
     @RequestMapping(value = "/delete")
     @ResponseBody
     @BussinessLog(value = "删除通知",key = "noticeId",dict = NoticeMap.class)
-    public Object delete(@RequestParam Integer noticeId) {
+    public Object delete(@RequestParam String noticeId) {
 
         //缓存通知名称
         LogObjectHolder.me().set(ConstantFactory.me().getNoticeTitle(noticeId));

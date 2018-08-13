@@ -9,29 +9,29 @@ package com.stylefeng.guns.core.node;
  */
 public class ZTreeNode {
 
-	private Long id;	//节点id
+	private String id;	//节点id
 	
-	private Long pId;//父节点id
+	private String pId;//父节点id
 	
 	private String name;//节点名称
 	
-	private Boolean open;//是否打开节点
+	private String open;//是否打开节点
 	
-	private Boolean checked;//是否被选中
+	private String checked;//是否被选中
 
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
-	public Long getpId() {
+	public String getpId() {
 		return pId;
 	}
 
-	public void setpId(Long pId) {
+	public void setpId(String pId) {
 		this.pId = pId;
 	}
 
@@ -43,37 +43,37 @@ public class ZTreeNode {
 		this.name = name;
 	}
 
-	public Boolean getOpen() {
+	public String getOpen() {
 		return open;
 	}
 
-	public void setOpen(Boolean open) {
+	public void setOpen(String open) {
 		this.open = open;
 	}
 
-	public Boolean getIsOpen() {
+	public String getIsOpen() {
 		return open;
 	}
 
-	public void setIsOpen(Boolean open) {
+	public void setIsOpen(String open) {
 		this.open = open;
 	}
 
-	public Boolean getChecked() {
+	public String getChecked() {
 		return checked;
 	}
 
-	public void setChecked(Boolean checked) {
+	public void setChecked(String checked) {
 		this.checked = checked;
 	}
 	
 	public static ZTreeNode createParent(){
 		ZTreeNode zTreeNode = new ZTreeNode();
-		zTreeNode.setChecked(true);
-		zTreeNode.setId(0L);
+		zTreeNode.setChecked("true");
+		zTreeNode.setId("0");
 		zTreeNode.setName("顶级");
-		zTreeNode.setOpen(true);
-		zTreeNode.setpId(0L);
+		zTreeNode.setOpen("true");
+		zTreeNode.setpId("0");
 		return zTreeNode;
 	}
 }

@@ -33,14 +33,14 @@ public interface IShiro {
      *
      * @param roleId 角色id
      */
-    List<String> findPermissionsByRoleId(Integer roleId);
+    List<String> findPermissionsByRoleId(String roleId);
 
     /**
      * 根据角色id获取角色名称
      *
      * @param roleId 角色id
      */
-    String findRoleNameByRoleId(Integer roleId);
+    String findRoleNameByRoleId(String roleId);
 
     /**
      * 获取shiro的认证信息

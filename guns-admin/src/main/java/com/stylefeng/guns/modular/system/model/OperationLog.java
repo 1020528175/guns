@@ -24,8 +24,8 @@ public class OperationLog extends Model<OperationLog> {
     /**
      * 主键
      */
-	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	@TableId(value="id", type= IdType.UUID)
+	private String id;
     /**
      * 日志类型
      */
@@ -37,7 +37,7 @@ public class OperationLog extends Model<OperationLog> {
     /**
      * 用户id
      */
-	private Integer userid;
+	private String userid;
     /**
      * 类名称
      */
@@ -60,11 +60,11 @@ public class OperationLog extends Model<OperationLog> {
 	private String message;
 
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -84,11 +84,11 @@ public class OperationLog extends Model<OperationLog> {
 		this.logname = logname;
 	}
 
-	public Integer getUserid() {
+	public String getUserid() {
 		return userid;
 	}
 
-	public void setUserid(Integer userid) {
+	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 

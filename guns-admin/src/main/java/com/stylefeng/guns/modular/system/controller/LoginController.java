@@ -47,7 +47,7 @@ public class LoginController extends BaseController {
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String index(Model model) {
         //获取菜单列表
-        List<Integer> roleList = ShiroKit.getUser().getRoleList();
+        List<String> roleList = ShiroKit.getUser().getRoleList();
         if (roleList == null || roleList.size() == 0) {
             ShiroKit.getSubject().logout();
             model.addAttribute("tips", "该用户没有角色，无法登陆");
@@ -60,7 +60,7 @@ public class LoginController extends BaseController {
         model.addAttribute("titles", titles);
 
         //获取用户头像
-        Integer id = ShiroKit.getUser().getId();
+        String id = ShiroKit.getUser().getId();
         User user = userService.selectById(id);
         String avatar = user.getAvatar();
         model.addAttribute("avatar", avatar);

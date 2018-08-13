@@ -26,13 +26,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
     @Override
     @Transactional(readOnly = false)
-    public void setAuthority(Integer roleId, String ids) {
+    public void setAuthority(String roleId, String ids) {
 
         // 删除该角色所有的权限
         this.roleMapper.deleteRolesById(roleId);
 
         // 添加新的权限
-        for (Long id : Convert.toLongArray(true, Convert.toStrArray(",", ids))) {
+        for (String id :  Convert.toStrArray(",", ids)) {
             Relation relation = new Relation();
             relation.setRoleid(roleId);
             relation.setMenuid(id);
@@ -42,7 +42,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
 
     @Override
     @Transactional(readOnly = false)
-    public void delRoleById(Integer roleId) {
+    public void delRoleById(String roleId) {
         //删除角色
         this.roleMapper.deleteById(roleId);
 
@@ -56,7 +56,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements IR
     }
 
     @Override
-    public int deleteRolesById(Integer roleId) {
+    public int deleteRolesById(String roleId) {
         return this.baseMapper.deleteRolesById(roleId);
     }
 

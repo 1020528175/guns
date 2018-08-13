@@ -23,8 +23,8 @@ public class Role extends Model<Role> {
     /**
      * 主键id
      */
-	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	@TableId(value="id", type= IdType.UUID)
+	private String id;
     /**
      * 序号
      */
@@ -32,7 +32,7 @@ public class Role extends Model<Role> {
     /**
      * 父角色id
      */
-	private Integer pid;
+	private String pid;
     /**
      * 角色名称
      */
@@ -40,7 +40,7 @@ public class Role extends Model<Role> {
     /**
      * 部门名称
      */
-	private Integer deptid;
+	private String deptid;
     /**
      * 提示
      */
@@ -51,11 +51,11 @@ public class Role extends Model<Role> {
 	private Integer version;
 
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -67,11 +67,11 @@ public class Role extends Model<Role> {
 		this.num = num;
 	}
 
-	public Integer getPid() {
+	public String getPid() {
 		return pid;
 	}
 
-	public void setPid(Integer pid) {
+	public void setPid(String pid) {
 		this.pid = pid;
 	}
 
@@ -83,11 +83,11 @@ public class Role extends Model<Role> {
 		this.name = name;
 	}
 
-	public Integer getDeptid() {
+	public String getDeptid() {
 		return deptid;
 	}
 
-	public void setDeptid(Integer deptid) {
+	public void setDeptid(String deptid) {
 		this.deptid = deptid;
 	}
 

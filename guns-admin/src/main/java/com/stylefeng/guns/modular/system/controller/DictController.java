@@ -61,7 +61,7 @@ public class DictController extends BaseController {
      */
     @Permission(Const.ADMIN_NAME)
     @RequestMapping("/dict_edit/{dictId}")
-    public String deptUpdate(@PathVariable Integer dictId, Model model) {
+    public String deptUpdate(@PathVariable String dictId, Model model) {
         Dict dict = dictService.selectById(dictId);
         model.addAttribute("dict", dict);
         List<Dict> subDicts = dictService.selectList(new EntityWrapper<Dict>().eq("pid", dictId));
@@ -104,7 +104,7 @@ public class DictController extends BaseController {
     @RequestMapping(value = "/detail/{dictId}")
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public Object detail(@PathVariable("dictId") Integer dictId) {
+    public Object detail(@PathVariable("dictId") String dictId) {
         return dictService.selectById(dictId);
     }
 
@@ -115,7 +115,7 @@ public class DictController extends BaseController {
     @RequestMapping(value = "/update")
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public Object update(Integer dictId,String dictCode,String dictName, String dictTips,String dictValues) {
+    public Object update(String dictId,String dictCode,String dictName, String dictTips,String dictValues) {
         if (ToolUtil.isOneEmpty(dictId, dictCode, dictName, dictValues)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -130,7 +130,7 @@ public class DictController extends BaseController {
     @RequestMapping(value = "/delete")
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public Object delete(@RequestParam Integer dictId) {
+    public Object delete(@RequestParam String dictId) {
 
         //缓存被删除的名称
         LogObjectHolder.me().set(ConstantFactory.me().getDictName(dictId));

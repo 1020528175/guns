@@ -28,7 +28,7 @@ public class DeptTest extends BaseJunit {
         Dept dept = new Dept();
         dept.setFullname("测试fullname");
         dept.setNum(5);
-        dept.setPid(1);
+        dept.setPid("1");
         dept.setSimplename("测试");
         dept.setTips("测试tips");
         dept.setVersion(1);

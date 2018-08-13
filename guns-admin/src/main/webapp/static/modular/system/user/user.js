@@ -15,15 +15,15 @@ var MgrUser = {
 MgrUser.initColumn = function () {
     var columns = [
         {field: 'selectItem', radio: true},
-        {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
-        {title: '账号', field: 'account', align: 'center', valign: 'middle', sortable: true},
-        {title: '姓名', field: 'name', align: 'center', valign: 'middle', sortable: true},
+        {title: 'id', field: 'ID', visible: false, align: 'center', valign: 'middle'},
+        {title: '账号', field: 'ACCOUNT', align: 'center', valign: 'middle', sortable: true},
+        {title: '姓名', field: 'NAME', align: 'center', valign: 'middle', sortable: true},
         {title: '性别', field: 'sexName', align: 'center', valign: 'middle', sortable: true},
         {title: '角色', field: 'roleName', align: 'center', valign: 'middle', sortable: true},
         {title: '部门', field: 'deptName', align: 'center', valign: 'middle', sortable: true},
-        {title: '邮箱', field: 'email', align: 'center', valign: 'middle', sortable: true},
-        {title: '电话', field: 'phone', align: 'center', valign: 'middle', sortable: true},
-        {title: '创建时间', field: 'createtime', align: 'center', valign: 'middle', sortable: true},
+        {title: '邮箱', field: 'EMAIL', align: 'center', valign: 'middle', sortable: true},
+        {title: '电话', field: 'PHONE', align: 'center', valign: 'middle', sortable: true},
+        {title: '创建时间', field: 'CREATETIME', align: 'center', valign: 'middle', sortable: true},
         {title: '状态', field: 'statusName', align: 'center', valign: 'middle', sortable: true}];
     return columns;
 };
@@ -69,7 +69,7 @@ MgrUser.openChangeUser = function () {
             area: ['800px', '450px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/mgr/user_edit/' + this.seItem.id
+            content: Feng.ctxPath + '/mgr/user_edit/' + this.seItem.ID
         });
         this.layerIndex = index;
     }
@@ -87,7 +87,7 @@ MgrUser.roleAssign = function () {
             area: ['300px', '400px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/mgr/role_assign/' + this.seItem.id
+            content: Feng.ctxPath + '/mgr/role_assign/' + this.seItem.ID
         });
         this.layerIndex = index;
     }
@@ -100,7 +100,7 @@ MgrUser.delMgrUser = function () {
     if (this.check()) {
 
         var operation = function(){
-            var userId = MgrUser.seItem.id;
+            var userId = MgrUser.seItem.ID;
             var ajax = new $ax(Feng.ctxPath + "/mgr/delete", function () {
                 Feng.success("删除成功!");
                 MgrUser.table.refresh();
@@ -111,7 +111,7 @@ MgrUser.delMgrUser = function () {
             ajax.start();
         };
 
-        Feng.confirm("是否删除用户" + MgrUser.seItem.account + "?",operation);
+        Feng.confirm("是否删除用户" + MgrUser.seItem.ACCOUNT + "?",operation);
     }
 };
 
@@ -121,7 +121,7 @@ MgrUser.delMgrUser = function () {
  */
 MgrUser.freezeAccount = function () {
     if (this.check()) {
-        var userId = this.seItem.id;
+        var userId = this.seItem.ID;
         var ajax = new $ax(Feng.ctxPath + "/mgr/freeze", function (data) {
             Feng.success("冻结成功!");
             MgrUser.table.refresh();
@@ -139,7 +139,7 @@ MgrUser.freezeAccount = function () {
  */
 MgrUser.unfreeze = function () {
     if (this.check()) {
-        var userId = this.seItem.id;
+        var userId = this.seItem.ID;
         var ajax = new $ax(Feng.ctxPath + "/mgr/unfreeze", function (data) {
             Feng.success("解除冻结成功!");
             MgrUser.table.refresh();
@@ -156,7 +156,7 @@ MgrUser.unfreeze = function () {
  */
 MgrUser.resetPwd = function () {
     if (this.check()) {
-        var userId = this.seItem.id;
+        var userId = this.seItem.ID;
         parent.layer.confirm('是否重置密码为111111？', {
             btn: ['确定', '取消'],
             shade: false //不显示遮罩

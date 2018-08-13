@@ -22,22 +22,22 @@ import java.util.Map;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Override
-    public int setStatus(Integer userId, int status) {
+    public int setStatus(String userId, String status) {
         return this.baseMapper.setStatus(userId, status);
     }
 
     @Override
-    public int changePwd(Integer userId, String pwd) {
+    public int changePwd(String userId, String pwd) {
         return this.baseMapper.changePwd(userId, pwd);
     }
 
     @Override
-    public List<Map<String, Object>> selectUsers(DataScope dataScope, String name, String beginTime, String endTime, Integer deptid) {
+    public List<Map<String, Object>> selectUsers(DataScope dataScope, String name, String beginTime, String endTime, String deptid) {
         return this.baseMapper.selectUsers(dataScope, name, beginTime, endTime, deptid);
     }
 
     @Override
-    public int setRoles(Integer userId, String roleIds) {
+    public int setRoles(String userId, String roleIds) {
         return this.baseMapper.setRoles(userId, roleIds);
     }
 

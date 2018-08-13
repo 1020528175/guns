@@ -14,11 +14,11 @@ var Dept = {
 Dept.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-        {title: 'id', field: 'id', align: 'center', valign: 'middle',width:'50px'},
-        {title: '部门简称', field: 'simplename', align: 'center', valign: 'middle', sortable: true},
-        {title: '部门全称', field: 'fullname', align: 'center', valign: 'middle', sortable: true},
-        {title: '排序', field: 'num', align: 'center', valign: 'middle', sortable: true},
-        {title: '备注', field: 'tips', align: 'center', valign: 'middle', sortable: true}];
+        {title: 'id', field: 'ID', align: 'center', valign: 'middle',width:'50px'},
+        {title: '部门简称', field: 'SIMPLENAME', align: 'center', valign: 'middle', sortable: true},
+        {title: '部门全称', field: 'FULLNAME', align: 'center', valign: 'middle', sortable: true},
+        {title: '排序', field: 'NUM', align: 'center', valign: 'middle', sortable: true},
+        {title: '备注', field: 'TIPS', align: 'center', valign: 'middle', sortable: true}];
 };
 
 /**
@@ -61,7 +61,7 @@ Dept.openDeptDetail = function () {
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/dept/dept_update/' + Dept.seItem.id
+            content: Feng.ctxPath + '/dept/dept_update/' + Dept.seItem.ID
         });
         this.layerIndex = index;
     }
@@ -80,7 +80,7 @@ Dept.delete = function () {
             }, function (data) {
                 Feng.error("删除失败!" + data.responseJSON.message + "!");
             });
-            ajax.set("deptId",Dept.seItem.id);
+            ajax.set("deptId",Dept.seItem.ID);
             ajax.start();
         };
 

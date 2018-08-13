@@ -27,7 +27,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     private MenuMapper menuMapper;
 
     @Override
-    public void delMenu(Long menuId) {
+    public void delMenu(String menuId) {
 
         //删除菜单
         this.menuMapper.deleteById(menuId);
@@ -37,7 +37,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
-    public void delMenuContainSubMenus(Long menuId) {
+    public void delMenuContainSubMenus(String menuId) {
 
         Menu menu = menuMapper.selectById(menuId);
 
@@ -59,7 +59,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
-    public List<Long> getMenuIdsByRoleId(Integer roleId) {
+    public List<String> getMenuIdsByRoleId(String roleId) {
         return this.baseMapper.getMenuIdsByRoleId(roleId);
     }
 
@@ -69,22 +69,22 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
     }
 
     @Override
-    public List<ZTreeNode> menuTreeListByMenuIds(List<Long> menuIds) {
+    public List<ZTreeNode> menuTreeListByMenuIds(List<String> menuIds) {
         return this.baseMapper.menuTreeListByMenuIds(menuIds);
     }
 
     @Override
-    public int deleteRelationByMenu(Long menuId) {
+    public int deleteRelationByMenu(String menuId) {
         return this.baseMapper.deleteRelationByMenu(menuId);
     }
 
     @Override
-    public List<String> getResUrlsByRoleId(Integer roleId) {
+    public List<String> getResUrlsByRoleId(String roleId) {
         return this.baseMapper.getResUrlsByRoleId(roleId);
     }
 
     @Override
-    public List<MenuNode> getMenusByRoleIds(List<Integer> roleIds) {
+    public List<MenuNode> getMenusByRoleIds(List<String> roleIds) {
         return this.baseMapper.getMenusByRoleIds(roleIds);
     }
 }

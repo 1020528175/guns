@@ -22,7 +22,7 @@ public class DeptServiceImpl extends ServiceImpl<DeptMapper, Dept> implements ID
     private DeptMapper deptMapper;
 
     @Override
-    public void deleteDept(Integer deptId) {
+    public void deleteDept(String deptId) {
         Dept dept = deptMapper.selectById(deptId);
 
         Wrapper<Dept> wrapper = new EntityWrapper<>();

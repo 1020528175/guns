@@ -23,7 +23,7 @@ public class TableService {
      * 获取当前数据库所有的表信息
      */
     public List<Map<String, Object>> getAllTables() {
-        String sql = "select TABLE_NAME as tableName,TABLE_COMMENT as tableComment from information_schema.`TABLES` where TABLE_SCHEMA = '" + dbName + "'";
+        String sql = "select t.table_name as tableName,c.COMMENTS as tableComment from all_tables t left join all_tab_comments c on t.TABLE_NAME=c.TABLE_NAME and t.OWNER=c.OWNER where t.owner='"+dbName+"' order by t.table_name";
         return SqlRunner.db().selectList(sql);
     }
 }

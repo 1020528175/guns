@@ -69,7 +69,7 @@ Code.setTableName = function (tableName) {
  * 点击父级编号input框时
  */
 Code.onClickDept = function (e, treeId, treeNode) {
-    $("#parentMenuName").attr("value", Code.ztreeInstance.getSelectedVal());
+    $("#parentMenuName").attr("value", treeNode.id);
 };
 
 /**
@@ -87,7 +87,7 @@ $(function () {
     $("#pcodeTree").css('width',$("#parentMenuName").css('width'));
 });
 
-Code.set = function (key, value) {
+Code.set = function (key, val) {
     Code.submitData[key] = (typeof value == "undefined") ? $("#" + key).val() : value;
     return this;
 };

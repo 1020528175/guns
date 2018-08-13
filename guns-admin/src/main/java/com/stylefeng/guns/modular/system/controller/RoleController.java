@@ -72,7 +72,7 @@ public class RoleController extends BaseController {
      */
     @Permission
     @RequestMapping(value = "/role_edit/{roleId}")
-    public String roleEdit(@PathVariable Integer roleId, Model model) {
+    public String roleEdit(@PathVariable String roleId, Model model) {
         if (ToolUtil.isEmpty(roleId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -89,7 +89,7 @@ public class RoleController extends BaseController {
      */
     @Permission
     @RequestMapping(value = "/role_assign/{roleId}")
-    public String roleAssign(@PathVariable("roleId") Integer roleId, Model model) {
+    public String roleAssign(@PathVariable("roleId") String roleId, Model model) {
         if (ToolUtil.isEmpty(roleId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -150,7 +150,7 @@ public class RoleController extends BaseController {
     @BussinessLog(value = "删除角色", key = "roleId", dict = RoleDict.class)
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public Tip remove(@RequestParam Integer roleId) {
+    public Tip remove(@RequestParam String roleId) {
         if (ToolUtil.isEmpty(roleId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -190,7 +190,7 @@ public class RoleController extends BaseController {
     @BussinessLog(value = "配置权限", key = "roleId,ids", dict = RoleDict.class)
     @Permission(Const.ADMIN_NAME)
     @ResponseBody
-    public Tip setAuthority(@RequestParam("roleId") Integer roleId, @RequestParam("ids") String ids) {
+    public Tip setAuthority(@RequestParam("roleId") String roleId, @RequestParam("ids") String ids) {
         if (ToolUtil.isOneEmpty(roleId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -214,7 +214,7 @@ public class RoleController extends BaseController {
      */
     @RequestMapping(value = "/roleTreeListByUserId/{userId}")
     @ResponseBody
-    public List<ZTreeNode> roleTreeListByUserId(@PathVariable Integer userId) {
+    public List<ZTreeNode> roleTreeListByUserId(@PathVariable String userId) {
         User theUser = this.userService.selectById(userId);
         String roleid = theUser.getRoleid();
         if (ToolUtil.isEmpty(roleid)) {

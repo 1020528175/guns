@@ -32,9 +32,9 @@
 
     <select id="list" resultType="map">
         select * from sys_dict
-        where pid = 0
+        where pid = '0'
         <if test="condition != null and condition != ''">
-            AND name like CONCAT('%',#{condition},'%')
+            AND name like '%${condition}%'
         </if>
         order by id ASC
     </select>

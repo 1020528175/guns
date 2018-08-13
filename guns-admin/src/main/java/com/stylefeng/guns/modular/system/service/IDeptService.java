@@ -19,7 +19,7 @@ public interface IDeptService extends IService<Dept> {
     /**
      * 删除部门
      */
-    void deleteDept(Integer deptId);
+    void deleteDept(String deptId);
 
     /**
      * 获取ztree的节点列表

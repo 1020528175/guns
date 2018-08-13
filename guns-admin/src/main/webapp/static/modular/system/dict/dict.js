@@ -14,8 +14,8 @@ var Dict = {
 Dict.initColumn = function () {
     return [
         {field: 'selectItem', radio: true},
-        {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
-        {title: '名称', field: 'name', align: 'center', valign: 'middle', sortable: true},
+        {title: 'id', field: 'ID', visible: false, align: 'center', valign: 'middle'},
+        {title: '名称', field: 'NAME', align: 'center', valign: 'middle', sortable: true},
         {title: '详情', field: 'detail', align: 'center', valign: 'middle', sortable: true},
         {title: '备注', field: 'tips', align: 'center', valign: 'middle', sortable: true}];
 };
@@ -60,7 +60,7 @@ Dict.openDictDetail = function () {
             area: ['800px', '420px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/dict/dict_edit/' + Dict.seItem.id
+            content: Feng.ctxPath + '/dict/dict_edit/' + Dict.seItem.ID
         });
         this.layerIndex = index;
     }
@@ -79,11 +79,11 @@ Dict.delete = function () {
             }, function (data) {
                 Feng.error("删除失败!" + data.responseJSON.message + "!");
             });
-            ajax.set("dictId", Dict.seItem.id);
+            ajax.set("dictId", Dict.seItem.ID);
             ajax.start();
         };
 
-        Feng.confirm("是否刪除字典 " + Dict.seItem.name + "?", operation);
+        Feng.confirm("是否刪除字典 " + Dict.seItem.NAME + "?", operation);
     }
 };
 

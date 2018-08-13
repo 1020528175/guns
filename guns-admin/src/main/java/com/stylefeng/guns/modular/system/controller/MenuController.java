@@ -67,7 +67,7 @@ public class MenuController extends BaseController {
      */
     @Permission(Const.ADMIN_NAME)
     @RequestMapping(value = "/menu_edit/{menuId}")
-    public String menuEdit(@PathVariable Long menuId, Model model) {
+    public String menuEdit(@PathVariable String menuId, Model model) {
         if (ToolUtil.isEmpty(menuId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -155,7 +155,7 @@ public class MenuController extends BaseController {
     @RequestMapping(value = "/remove")
     @BussinessLog(value = "删除菜单", key = "menuId", dict = MenuDict.class)
     @ResponseBody
-    public Tip remove(@RequestParam Long menuId) {
+    public Tip remove(@RequestParam String menuId) {
         if (ToolUtil.isEmpty(menuId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -206,8 +206,8 @@ public class MenuController extends BaseController {
      */
     @RequestMapping(value = "/menuTreeListByRoleId/{roleId}")
     @ResponseBody
-    public List<ZTreeNode> menuTreeListByRoleId(@PathVariable Integer roleId) {
-        List<Long> menuIds = this.menuService.getMenuIdsByRoleId(roleId);
+    public List<ZTreeNode> menuTreeListByRoleId(@PathVariable String roleId) {
+        List<String> menuIds = this.menuService.getMenuIdsByRoleId(roleId);
         if (ToolUtil.isEmpty(menuIds)) {
             List<ZTreeNode> roleTreeList = this.menuService.menuTreeList();
             return roleTreeList;
@@ -224,11 +224,11 @@ public class MenuController extends BaseController {
         if (ToolUtil.isEmpty(menu.getPcode()) || menu.getPcode().equals("0")) {
             menu.setPcode("0");
             menu.setPcodes("[0],");
-            menu.setLevels(1);
+            menu.setLevels("1");
         } else {
             long code = Long.parseLong(menu.getPcode());
             Menu pMenu = menuService.selectById(code);
-            Integer pLevels = pMenu.getLevels();
+            String pLevels = pMenu.getLevels();
             menu.setPcode(pMenu.getCode());
 
             //如果编号和父编号一致会导致无限递归

@@ -14,13 +14,13 @@ var Menu = {
 Menu.initColumn = function () {
     var columns = [
         {field: 'selectItem', radio: true},
-        {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
-        {title: '菜单名称', field: 'name', align: 'center', valign: 'middle', sortable: true},
-        {title: '菜单编号', field: 'code', align: 'center', valign: 'middle', sortable: true},
-        {title: '菜单父编号', field: 'pcode', align: 'center', valign: 'middle', sortable: true},
-        {title: '请求地址', field: 'url', align: 'center', valign: 'middle', sortable: true},
-        {title: '排序', field: 'num', align: 'center', valign: 'middle', sortable: true},
-        {title: '层级', field: 'levels', align: 'center', valign: 'middle', sortable: true},
+        {title: 'id', field: 'ID', visible: false, align: 'center', valign: 'middle'},
+        {title: '菜单名称', field: 'NAME', align: 'center', valign: 'middle', sortable: true},
+        {title: '菜单编号', field: 'CODE', align: 'center', valign: 'middle', sortable: true},
+        {title: '菜单父编号', field: 'PCODE', align: 'center', valign: 'middle', sortable: true},
+        {title: '请求地址', field: 'URL', align: 'center', valign: 'middle', sortable: true},
+        {title: '排序', field: 'NUM', align: 'center', valign: 'middle', sortable: true},
+        {title: '层级', field: 'LEVELS', align: 'center', valign: 'middle', sortable: true},
         {title: '是否是菜单', field: 'isMenuName', align: 'center', valign: 'middle', sortable: true},
         {title: '状态', field: 'statusName', align: 'center', valign: 'middle', sortable: true}]
     return columns;
@@ -67,7 +67,7 @@ Menu.openChangeMenu = function () {
             area: ['800px', '450px'], //宽高
             fix: false, //不固定
             maxmin: true,
-            content: Feng.ctxPath + '/menu/menu_edit/' + this.seItem.id
+            content: Feng.ctxPath + '/menu/menu_edit/' + this.seItem.ID
         });
         this.layerIndex = index;
     }
@@ -86,7 +86,7 @@ Menu.delMenu = function () {
             }, function (data) {
                 Feng.error("删除失败!" + data.responseJSON.message + "!");
             });
-            ajax.set("menuId", Menu.seItem.id);
+            ajax.set("menuId", Menu.seItem.ID);
             ajax.start();
         };
 

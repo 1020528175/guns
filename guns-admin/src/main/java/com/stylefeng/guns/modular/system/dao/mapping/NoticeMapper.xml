@@ -15,7 +15,7 @@
     <select id="list" resultType="map">
         select * from sys_notice
         <if test="condition != null and condition != ''">
-            where title like CONCAT('%',#{condition},'%') or content like CONCAT('%',#{condition},'%')
+            where title like '%${condition}%' or content like '%${condition}%'
         </if>
         order by createtime DESC
     </select>

@@ -3,7 +3,6 @@ package com.stylefeng.guns.core.shiro.factory;
 import com.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 import com.stylefeng.guns.core.common.constant.state.ManagerStatus;
 import com.stylefeng.guns.core.shiro.ShiroUser;
-import com.stylefeng.guns.core.util.Convert;
 import com.stylefeng.guns.core.util.SpringContextHolder;
 import com.stylefeng.guns.modular.system.dao.MenuMapper;
 import com.stylefeng.guns.modular.system.dao.UserMapper;
@@ -46,7 +45,7 @@ public class ShiroFactroy implements IShiro {
             throw new CredentialsException();
         }
         // 账号被冻结
-        if (user.getStatus() != ManagerStatus.OK.getCode()) {
+        if (!user.getStatus().equals(ManagerStatus.OK.getCode()) ) {
             throw new LockedAccountException();
         }
         return user;
@@ -62,10 +61,10 @@ public class ShiroFactroy implements IShiro {
         shiroUser.setDeptName(ConstantFactory.me().getDeptName(user.getDeptid()));
         shiroUser.setName(user.getName());
 
-        Integer[] roleArray = Convert.toIntArray(user.getRoleid());
-        List<Integer> roleList = new ArrayList<Integer>();
+        String[] roleArray =  user.getRoleid().split(",");
+        List<String> roleList = new ArrayList<String>();
         List<String> roleNameList = new ArrayList<String>();
-        for (int roleId : roleArray) {
+        for (String roleId : roleArray) {
             roleList.add(roleId);
             roleNameList.add(ConstantFactory.me().getSingleRoleName(roleId));
         }
@@ -76,12 +75,12 @@ public class ShiroFactroy implements IShiro {
     }
 
     @Override
-    public List<String> findPermissionsByRoleId(Integer roleId) {
+    public List<String> findPermissionsByRoleId(String roleId) {
         return menuMapper.getResUrlsByRoleId(roleId);
     }
 
     @Override
-    public String findRoleNameByRoleId(Integer roleId) {
+    public String findRoleNameByRoleId(String roleId) {
         return ConstantFactory.me().getSingleRoleTip(roleId);
     }
 

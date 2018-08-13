@@ -70,7 +70,7 @@
                                              data-bind="foreach: tables"
                                              style="height: 500px; overflow-y: scroll">
                                             @for(table in tables!){
-                                                <a href="javascript:void(0)" class="list-group-item" tableName="${table.tableName}" onclick="Code.selectTable('${table.tableName}')">${table.tableName}-${table.tableComment}</a>
+                                                <a href="javascript:void(0)" class="list-group-item" tableName="${table.TABLENAME}" onclick="Code.selectTable('${table.TABLENAME}')">${table.TABLENAME}-${table.TABLECOMMENT}</a>
                                             @}
                                         </div>
                                     </div>

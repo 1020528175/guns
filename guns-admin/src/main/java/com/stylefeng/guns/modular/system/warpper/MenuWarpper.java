@@ -21,8 +21,8 @@ public class MenuWarpper extends BaseControllerWarpper {
 
     @Override
     public void warpTheMap(Map<String, Object> map) {
-        map.put("statusName", ConstantFactory.me().getMenuStatusName((Integer) map.get("status")));
-        map.put("isMenuName", IsMenu.valueOf((Integer) map.get("ismenu")));
+        map.put("statusName", ConstantFactory.me().getMenuStatusName((String) map.get("STATUS")));
+        map.put("isMenuName", IsMenu.valueOfs((String) map.get("ISMENU")));
     }
 
 }

@@ -1,9 +1,9 @@
 package com.stylefeng.guns.modular.system.warpper;
 
-import com.stylefeng.guns.core.common.constant.factory.ConstantFactory;
-import com.stylefeng.guns.modular.system.model.Dict;
 import com.stylefeng.guns.core.base.warpper.BaseControllerWarpper;
+import com.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 import com.stylefeng.guns.core.util.ToolUtil;
+import com.stylefeng.guns.modular.system.model.Dict;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,7 @@ public class DictWarpper extends BaseControllerWarpper {
     @Override
     public void warpTheMap(Map<String, Object> map) {
         StringBuffer detail = new StringBuffer();
-        Integer id = Integer.valueOf(map.get("id").toString());
+        String id = map.get("ID").toString();
         List<Dict> dicts = ConstantFactory.me().findInDict(id);
         if(dicts != null){
             for (Dict dict : dicts) {

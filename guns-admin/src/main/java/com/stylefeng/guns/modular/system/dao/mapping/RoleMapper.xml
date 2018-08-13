@@ -22,7 +22,7 @@
 		<include refid="Base_Column_List" />
 		from sys_role
 		<if test="condition != null">
-			where name like CONCAT('%',#{condition},'%')
+				where name like '%${condition}%'
 		</if>
 	</select>
 

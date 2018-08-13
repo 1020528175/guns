@@ -24,8 +24,8 @@ public class LoginLog extends Model<LoginLog> {
     /**
      * 主键
      */
-	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	@TableId(value="id", type= IdType.UUID)
+	private String id;
     /**
      * 日志名称
      */
@@ -33,7 +33,7 @@ public class LoginLog extends Model<LoginLog> {
     /**
      * 管理员id
      */
-	private Integer userid;
+	private String userid;
     /**
      * 创建时间
      */
@@ -52,11 +52,11 @@ public class LoginLog extends Model<LoginLog> {
 	private String ip;
 
 
-	public Integer getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -68,11 +68,11 @@ public class LoginLog extends Model<LoginLog> {
 		this.logname = logname;
 	}
 
-	public Integer getUserid() {
+	public String getUserid() {
 		return userid;
 	}
 
-	public void setUserid(Integer userid) {
+	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 

@@ -138,7 +138,7 @@ public class Contrast {
                 Method getMethod = null;
                 try {
                     getMethod = clazz.getDeclaredMethod(prefix + StrKit.firstCharToUpperCase(field.getName()));
-                } catch (java.lang.NoSuchMethodException e) {
+                } catch (NoSuchMethodException e) {
                     System.err.println("this className:" + clazz.getName() + " is not methodName: " + e.getMessage());
                     continue;
                 }

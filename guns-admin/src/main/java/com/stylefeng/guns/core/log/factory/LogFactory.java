@@ -18,7 +18,7 @@ public class LogFactory {
     /**
      * 创建操作日志
      */
-    public static OperationLog createOperationLog(LogType logType, Integer userId, String bussinessName, String clazzName, String methodName, String msg, LogSucceed succeed) {
+    public static OperationLog createOperationLog(LogType logType, String userId, String bussinessName, String clazzName, String methodName, String msg, LogSucceed succeed) {
         OperationLog operationLog = new OperationLog();
         operationLog.setLogtype(logType.getMessage());
         operationLog.setLogname(bussinessName);
@@ -34,7 +34,7 @@ public class LogFactory {
     /**
      * 创建登录日志
      */
-    public static LoginLog createLoginLog(LogType logType, Integer userId, String msg, String ip) {
+    public static LoginLog createLoginLog(LogType logType, String userId, String msg, String ip) {
         LoginLog loginLog = new LoginLog();
         loginLog.setLogname(logType.getMessage());
         loginLog.setUserid(userId);

@@ -266,9 +266,9 @@ public class ShiroKit {
     /**
      * 获取当前用户的部门数据范围的集合
      */
-    public static List<Integer> getDeptDataScope() {
-        Integer deptId = getUser().getDeptId();
-        List<Integer> subDeptIds = ConstantFactory.me().getSubDeptId(deptId);
+    public static List<String> getDeptDataScope() {
+    	String deptId = getUser().getDeptId();
+        List<String> subDeptIds = ConstantFactory.me().getSubDeptId(deptId);
         subDeptIds.add(deptId);
         return subDeptIds;
     }
@@ -277,8 +277,8 @@ public class ShiroKit {
      * 判断当前用户是否是超级管理员
      */
     public static boolean isAdmin() {
-        List<Integer> roleList = ShiroKit.getUser().getRoleList();
-        for (Integer integer : roleList) {
+        List<String> roleList = ShiroKit.getUser().getRoleList();
+        for (String integer : roleList) {
             String singleRoleTip = ConstantFactory.me().getSingleRoleTip(integer);
             if (singleRoleTip.equals(Const.ADMIN_NAME)) {
                 return true;

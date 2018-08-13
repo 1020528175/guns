@@ -23,39 +23,39 @@ public class Relation extends Model<Relation> {
     /**
      * 主键
      */
-    @TableId(value = "id", type = IdType.AUTO)
-    private Integer id;
+    @TableId(value = "id", type = IdType.UUID)
+    private String id;
     /**
      * 菜单id
      */
-    private Long menuid;
+    private String menuid;
     /**
      * 角色id
      */
-    private Integer roleid;
+    private String roleid;
 
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public Long getMenuid() {
+    public String getMenuid() {
         return menuid;
     }
 
-    public void setMenuid(Long menuid) {
+    public void setMenuid(String menuid) {
         this.menuid = menuid;
     }
 
-    public Integer getRoleid() {
+    public String getRoleid() {
         return roleid;
     }
 
-    public void setRoleid(Integer roleid) {
+    public void setRoleid(String roleid) {
         this.roleid = roleid;
     }
 

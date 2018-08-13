@@ -1,7 +1,7 @@
 package com.stylefeng.guns.modular.system.warpper;
 
-import com.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 import com.stylefeng.guns.core.base.warpper.BaseControllerWarpper;
+import com.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 
 import java.util.Map;
 
@@ -19,7 +19,7 @@ public class NoticeWrapper extends BaseControllerWarpper {
 
     @Override
     public void warpTheMap(Map<String, Object> map) {
-        Integer creater = (Integer) map.get("creater");
+        String creater = (String) map.get("CREATER");
         map.put("createrName", ConstantFactory.me().getUserNameById(creater));
     }
 

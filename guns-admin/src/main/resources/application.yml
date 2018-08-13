@@ -37,10 +37,10 @@ log:
 spring:
   profiles: local
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC
-    username: root
-    password: root
-    db-name: guns #用来搜集数据库的所有表
+    url: jdbc:oracle:thin:@192.168.1.107:1521:orcl
+    username: guns
+    password: guns
+    db-name: GUNS #用来搜集数据库的所有表
     filters: wall,mergeStat
 
 #多数据源情况的配置
@@ -59,10 +59,10 @@ guns:
 spring:
   profiles: dev
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC
-    username: root
-    password: root
-    db-name: guns #用来搜集数据库的所有表
+    url: jdbc:oracle:thin:@192.168.1.107:1521:orcl
+    username: guns
+    password: guns
+    db-name: GUNS #用来搜集数据库的所有表
     filters: wall,mergeStat
 
 ---
@@ -70,9 +70,9 @@ spring:
 spring:
   profiles: test
   datasource:
-    url: jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC
-    username: root
-    password: root
+    url: jdbc:oracle:thin:@192.168.1.107:1521:orcl
+    username: guns
+    password: guns
     filters: wall,mergeStat
 
 ---
@@ -80,8 +80,8 @@ spring:
 spring:
   profiles: produce
   datasource:
-      url: jdbc:mysql://127.0.0.1:3306/guns?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC
-      username: root
-      password: root
-      filters: wall,mergeStat
+    url: jdbc:oracle:thin:@192.168.1.107:1521:orcl
+    username: guns
+    password: guns
+    filters: wall,mergeStat
 

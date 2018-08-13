@@ -6,13 +6,12 @@ import com.stylefeng.guns.core.common.constant.cache.Cache;
 import com.stylefeng.guns.core.common.constant.cache.CacheKey;
 import com.stylefeng.guns.core.common.constant.state.ManagerStatus;
 import com.stylefeng.guns.core.common.constant.state.MenuStatus;
-import com.stylefeng.guns.modular.system.dao.*;
-import com.stylefeng.guns.modular.system.model.*;
 import com.stylefeng.guns.core.log.LogObjectHolder;
 import com.stylefeng.guns.core.support.StrKit;
-import com.stylefeng.guns.core.util.Convert;
 import com.stylefeng.guns.core.util.SpringContextHolder;
 import com.stylefeng.guns.core.util.ToolUtil;
+import com.stylefeng.guns.modular.system.dao.*;
+import com.stylefeng.guns.modular.system.model.*;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
@@ -48,7 +47,7 @@ public class ConstantFactory implements IConstantFactory {
      * @Date 2017/5/9 23:41
      */
     @Override
-    public String getUserNameById(Integer userId) {
+    public String getUserNameById(String userId) {
         User user = userMapper.selectById(userId);
         if (user != null) {
             return user.getName();
@@ -64,7 +63,7 @@ public class ConstantFactory implements IConstantFactory {
      * @date 2017年5月16日21:55:371
      */
     @Override
-    public String getUserAccountById(Integer userId) {
+    public String getUserAccountById(String userId) {
         User user = userMapper.selectById(userId);
         if (user != null) {
             return user.getAccount();
@@ -79,15 +78,20 @@ public class ConstantFactory implements IConstantFactory {
     @Override
     @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.ROLES_NAME + "'+#roleIds")
     public String getRoleName(String roleIds) {
-        Integer[] roles = Convert.toIntArray(roleIds);
-        StringBuilder sb = new StringBuilder();
-        for (int role : roles) {
-            Role roleObj = roleMapper.selectById(role);
-            if (ToolUtil.isNotEmpty(roleObj) && ToolUtil.isNotEmpty(roleObj.getName())) {
-                sb.append(roleObj.getName()).append(",");
+    	if(ToolUtil.isNotEmpty(roleIds)){
+    		String[] roles =roleIds.split(",");
+            StringBuilder sb = new StringBuilder();
+            for (String role : roles) {
+                Role roleObj = roleMapper.selectById(role);
+                if (ToolUtil.isNotEmpty(roleObj) && ToolUtil.isNotEmpty(roleObj.getName())) {
+                    sb.append(roleObj.getName()).append(",");
+                }
             }
-        }
-        return StrKit.removeSuffix(sb.toString(), ",");
+            return StrKit.removeSuffix(sb.toString(), ",");	
+    	}else{
+    		 return "暂无分配角色";	
+    	}
+    
     }
 
     /**
@@ -95,8 +99,8 @@ public class ConstantFactory implements IConstantFactory {
      */
     @Override
     @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.SINGLE_ROLE_NAME + "'+#roleId")
-    public String getSingleRoleName(Integer roleId) {
-        if (0 == roleId) {
+    public String getSingleRoleName(String roleId) {
+        if ("0".equals(roleId) ) {
             return "--";
         }
         Role roleObj = roleMapper.selectById(roleId);
@@ -111,8 +115,8 @@ public class ConstantFactory implements IConstantFactory {
      */
     @Override
     @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.SINGLE_ROLE_TIP + "'+#roleId")
-    public String getSingleRoleTip(Integer roleId) {
-        if (0 == roleId) {
+    public String getSingleRoleTip(String roleId) {
+        if ("0".equals(roleId)) {
             return "--";
         }
         Role roleObj = roleMapper.selectById(roleId);
@@ -127,7 +131,7 @@ public class ConstantFactory implements IConstantFactory {
      */
     @Override
     @Cacheable(value = Cache.CONSTANT, key = "'" + CacheKey.DEPT_NAME + "'+#deptId")
-    public String getDeptName(Integer deptId) {
+    public String getDeptName(String deptId) {
         Dept dept = deptMapper.selectById(deptId);
         if (ToolUtil.isNotEmpty(dept) && ToolUtil.isNotEmpty(dept.getFullname())) {
             return dept.getFullname();
@@ -140,22 +144,26 @@ public class ConstantFactory implements IConstantFactory {
      */
     @Override
     public String getMenuNames(String menuIds) {
-        Integer[] menus = Convert.toIntArray(menuIds);
-        StringBuilder sb = new StringBuilder();
-        for (int menu : menus) {
-            Menu menuObj = menuMapper.selectById(menu);
-            if (ToolUtil.isNotEmpty(menuObj) && ToolUtil.isNotEmpty(menuObj.getName())) {
-                sb.append(menuObj.getName()).append(",");
-            }
-        }
-        return StrKit.removeSuffix(sb.toString(), ",");
+    	if(ToolUtil.isNotEmpty(menuIds)){    		
+    		String[] menus = menuIds.split(",");
+    		StringBuilder sb = new StringBuilder();
+    		for (String menu : menus) {
+    			Menu menuObj = menuMapper.selectById(menu);
+    			if (ToolUtil.isNotEmpty(menuObj) && ToolUtil.isNotEmpty(menuObj.getName())) {
+    				sb.append(menuObj.getName()).append(",");
+    			}
+    		}
+    		return StrKit.removeSuffix(sb.toString(), ",");
+    	}else{
+    		return "";
+    	}
     }
 
     /**
      * 获取菜单名称
      */
     @Override
-    public String getMenuName(Long menuId) {
+    public String getMenuName(String menuId) {
         if (ToolUtil.isEmpty(menuId)) {
             return "";
         } else {
@@ -191,7 +199,7 @@ public class ConstantFactory implements IConstantFactory {
      * 获取字典名称
      */
     @Override
-    public String getDictName(Integer dictId) {
+    public String getDictName(String dictId) {
         if (ToolUtil.isEmpty(dictId)) {
             return "";
         } else {
@@ -208,7 +216,7 @@ public class ConstantFactory implements IConstantFactory {
      * 获取通知标题
      */
     @Override
-    public String getNoticeTitle(Integer dictId) {
+    public String getNoticeTitle(String dictId) {
         if (ToolUtil.isEmpty(dictId)) {
             return "";
         } else {
@@ -225,7 +233,7 @@ public class ConstantFactory implements IConstantFactory {
      * 根据字典名称和字典中的值获取对应的名称
      */
     @Override
-    public String getDictsByName(String name, Integer val) {
+    public String getDictsByName(String name, String val) {
         Dict temp = new Dict();
         temp.setName(name);
         Dict dict = dictMapper.selectOne(temp);
@@ -248,7 +256,7 @@ public class ConstantFactory implements IConstantFactory {
      * 获取性别名称
      */
     @Override
-    public String getSexName(Integer sex) {
+    public String getSexName(String sex) {
         return getDictsByName("性别", sex);
     }
 
@@ -256,23 +264,23 @@ public class ConstantFactory implements IConstantFactory {
      * 获取用户登录状态
      */
     @Override
-    public String getStatusName(Integer status) {
-        return ManagerStatus.valueOf(status);
+    public String getStatusName(String status) {
+        return ManagerStatus.valueOfs(status);
     }
 
     /**
      * 获取菜单状态
      */
     @Override
-    public String getMenuStatusName(Integer status) {
-        return MenuStatus.valueOf(status);
+    public String getMenuStatusName(String status) {
+        return MenuStatus.valueOfs(status);
     }
 
     /**
      * 查询字典
      */
     @Override
-    public List<Dict> findInDict(Integer id) {
+    public List<Dict> findInDict(String id) {
         if (ToolUtil.isEmpty(id)) {
             return null;
         } else {
@@ -298,12 +306,12 @@ public class ConstantFactory implements IConstantFactory {
      * 获取子部门id
      */
     @Override
-    public List<Integer> getSubDeptId(Integer deptid) {
+    public List<String> getSubDeptId(String deptid) {
         Wrapper<Dept> wrapper = new EntityWrapper<>();
         wrapper = wrapper.like("pids", "%[" + deptid + "]%");
         List<Dept> depts = this.deptMapper.selectList(wrapper);
 
-        ArrayList<Integer> deptids = new ArrayList<>();
+        ArrayList<String> deptids = new ArrayList<>();
 
         if(depts != null && depts.size() > 0){
             for (Dept dept : depts) {
@@ -318,16 +326,18 @@ public class ConstantFactory implements IConstantFactory {
      * 获取所有父部门id
      */
     @Override
-    public List<Integer> getParentDeptIds(Integer deptid) {
+    public List<String> getParentDeptIds(String deptid) {
         Dept dept = deptMapper.selectById(deptid);
         String pids = dept.getPids();
         String[] split = pids.split(",");
-        ArrayList<Integer> parentDeptIds = new ArrayList<>();
+        ArrayList<String> parentDeptIds = new ArrayList<>();
         for (String s : split) {
-            parentDeptIds.add(Integer.valueOf(StrKit.removeSuffix(StrKit.removePrefix(s, "["), "]")));
+            parentDeptIds.add(StrKit.removeSuffix(StrKit.removePrefix(s, "["), "]"));
         }
         return parentDeptIds;
     }
+
+
 
 
 }
