@@ -13,6 +13,7 @@
         <module>guns-core</module>
         <module>guns-rest</module>
         <module>guns-generator</module>
+        <module>guns-sso-plugin</module>
     </modules>
 
     <parent>
