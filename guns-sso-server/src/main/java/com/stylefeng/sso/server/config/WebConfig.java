@@ -28,7 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Bean
     @ConfigurationProperties(prefix = SsoProperties.BEETLCONF_PREFIX)
-    SsoProperties ssoProperties() {
+    public SsoProperties ssoProperties() {
         return new SsoProperties();
     }
 

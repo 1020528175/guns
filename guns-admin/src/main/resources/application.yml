@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 guns:
   swagger-open: true              #是否开启swagger (true/false)
@@ -56,7 +56,7 @@ guns:
 
 # 单点信息配置
 sso:
-  serverUrl: http://localhost:8080/sso
+  serverUrl: http://localhost:8080/sso/
 
 ---
 

@@ -1,4 +1,4 @@
-package com.stylefeng.guns.modular.sso;
+package com.stylefeng.guns.modular.sso.controller;
 
 import com.stylefeng.sso.plugin.constants.SsoConstants;
 import com.stylefeng.sso.plugin.properties.SsoProperties;

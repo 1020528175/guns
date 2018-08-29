@@ -71,7 +71,7 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new SsoClientInterceptor(ssoProperties(), remoteService(), clientCache)).addPathPatterns("/**").excludePathPatterns("/login");
+        registry.addInterceptor(new SsoClientInterceptor(ssoProperties(), remoteService(), clientCache)).addPathPatterns("/**").excludePathPatterns("/static/**");
         registry.addInterceptor(new RestApiInteceptor()).addPathPatterns("/gunsApi/**");
     }
 
