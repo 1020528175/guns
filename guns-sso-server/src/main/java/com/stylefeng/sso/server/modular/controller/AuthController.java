@@ -46,7 +46,7 @@ public class AuthController extends BaseController {
         String redirectUrl = request.getParameter(SsoConstants.REDIRECT_PARAM_NAME);
 
         if (ToolUtil.isEmpty(userName) || ToolUtil.isEmpty(password) || ToolUtil.isEmpty(redirectUrl)) {
-            model.addAttribute(LOGIN_TIPS, "请求信息不能为空!");
+            model.addAttribute(LOGIN_TIPS, "请求信息不完整!");
             return "/login.html";
         } else {
 

@@ -11,19 +11,25 @@ import com.stylefeng.guns.config.properties.GunsProperties;
 import com.stylefeng.guns.core.intercept.RestApiInteceptor;
 import com.stylefeng.guns.core.listener.ConfigListener;
 import com.stylefeng.guns.core.xss.XssFilter;
+import com.stylefeng.sso.plugin.cache.ClientCache;
+import com.stylefeng.sso.plugin.interceptor.SsoClientInterceptor;
+import com.stylefeng.sso.plugin.properties.SsoProperties;
+import com.stylefeng.sso.plugin.remote.RemoteService;
 import org.springframework.aop.Advisor;
 import org.springframework.aop.support.DefaultPointcutAdvisor;
 import org.springframework.aop.support.JdkRegexpMethodPointcut;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
 import java.util.Properties;
@@ -35,10 +41,39 @@ import java.util.Properties;
  * @date 2016年11月12日 下午5:03:32
  */
 @Configuration
-public class WebConfig extends WebMvcConfigurerAdapter {
+public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
     private GunsProperties gunsProperties;
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private ClientCache clientCache;
+
+    /**
+     * 配置sso
+     */
+    @Bean
+    @ConfigurationProperties(prefix = SsoProperties.BEETLCONF_PREFIX)
+    public SsoProperties ssoProperties() {
+        return new SsoProperties();
+    }
+
+    @Bean
+    public RemoteService remoteService() {
+        return new RemoteService(restTemplate, ssoProperties());
+    }
+
+    /**
+     * 增加对rest api鉴权的spring mvc拦截器
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new SsoClientInterceptor(ssoProperties(), remoteService(), clientCache)).addPathPatterns("/**").excludePathPatterns("/login");
+        registry.addInterceptor(new RestApiInteceptor()).addPathPatterns("/gunsApi/**");
+    }
 
     /**
      * 增加swagger的支持
@@ -49,14 +84,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
             registry.addResourceHandler("swagger-ui.html").addResourceLocations("classpath:/META-INF/resources/");
             registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
         }
-    }
-
-    /**
-     * 增加对rest api鉴权的spring mvc拦截器
-     */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new RestApiInteceptor()).addPathPatterns("/gunsApi/**");
     }
 
     /**

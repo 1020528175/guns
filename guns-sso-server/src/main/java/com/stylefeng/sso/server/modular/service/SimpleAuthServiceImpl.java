@@ -1,11 +1,14 @@
-package com.stylefeng.sso.server.modular.service.impl;
+package com.stylefeng.sso.server.modular.service;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.toolkit.IdWorker;
+import com.stylefeng.guns.core.util.MD5Util;
 import com.stylefeng.sso.plugin.api.SsoApi;
 import com.stylefeng.sso.plugin.constants.SsoConstants;
 import com.stylefeng.sso.plugin.model.LoginUser;
 import com.stylefeng.sso.plugin.model.SsoResponse;
 import com.stylefeng.sso.plugin.service.AuthService;
+import com.stylefeng.sso.server.modular.entity.SysUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * auth服务接口最简单实现
@@ -27,19 +27,34 @@ import java.util.Set;
 @Service
 public class SimpleAuthServiceImpl implements AuthService {
 
-    Logger log = LoggerFactory.getLogger(this.getClass());
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    Map<String, Object> cache = new HashMap<>();
+    private Map<String, Object> cache = new HashMap<>();
 
-    Set<String> ssoClients = new HashSet<>();
+    private Set<String> ssoClients = new HashSet<>();
 
     @Autowired
-    RestTemplate restTemplate;
+    private RestTemplate restTemplate;
+
+    @Autowired
+    private SysUserService sysUserService;
 
     @Override
     public String checkUserLogin(String userName, String password) {
-        if ("admin".equalsIgnoreCase(userName) && "admin".equalsIgnoreCase(password)) {
-            return "abc";
+
+        //查询账号是否存在
+        SysUser sysUser = null;
+        List<SysUser> accounts = sysUserService.selectList(new EntityWrapper<SysUser>().eq("ACCOUNT", userName));
+        if (accounts != null && accounts.size() > 0) {
+            sysUser = accounts.get(0);
+        } else {
+            return null;
+        }
+
+        //校验账号密码是否正确
+        String md5Hex = MD5Util.encrypt(password + sysUser.getSalt());
+        if (md5Hex.equals(sysUser.getPassword())) {
+            return sysUser.getUserId().toString();
         } else {
             return null;
         }
@@ -70,13 +85,7 @@ public class SimpleAuthServiceImpl implements AuthService {
 
     @Override
     public LoginUser getLoginUserByUserId(String userId) {
-        LoginUser loginUser = new LoginUser();
-        loginUser.setAccount("aaa");
-        loginUser.setEmail("sn93@qq.com");
-        loginUser.setPhoneNumber("123123");
-        loginUser.setStatus(2);
-        loginUser.setId(12321L);
-        return loginUser;
+        return sysUserService.getUserLoginInfo(Long.valueOf(userId));
     }
 
     @Override

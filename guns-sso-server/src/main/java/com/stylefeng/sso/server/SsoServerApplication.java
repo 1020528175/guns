@@ -2,6 +2,7 @@ package com.stylefeng.sso.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * 单点登录服务器
@@ -10,9 +11,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Date 2018年2月3日15:32:21
  */
 @SpringBootApplication
-public class SSOServerApplication {
+@EnableAspectJAutoProxy
+public class SsoServerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SSOServerApplication.class, args);
+        SpringApplication.run(SsoServerApplication.class, args);
     }
 }

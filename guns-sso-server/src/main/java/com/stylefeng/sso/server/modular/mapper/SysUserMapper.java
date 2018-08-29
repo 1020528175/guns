@@ -5,11 +5,11 @@ import com.stylefeng.sso.server.modular.entity.SysUser;
 
 /**
  * <p>
- * 用户信息表 Mapper 接口
+ * 用户表 Mapper 接口
  * </p>
  *
  * @author fengshuonan
- * @since 2018-01-09
+ * @since 2018-08-29
  */
 public interface SysUserMapper extends BaseMapper<SysUser> {
 

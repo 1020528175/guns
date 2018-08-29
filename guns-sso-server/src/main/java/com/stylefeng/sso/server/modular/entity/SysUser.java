@@ -1,78 +1,107 @@
 package com.stylefeng.sso.server.modular.entity;
 
-import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.FieldFill;
 
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * <p>
- * 用户信息表
+ * 用户表
  * </p>
  *
  * @author fengshuonan
- * @since 2018-01-09
+ * @since 2018-08-29
  */
 @TableName("sys_user")
-public class SysUser extends Model<SysUser> {
+public class SysUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
+    /**
+     * 主键id
+     */
+    @TableId("USER_ID")
+    private Long userId;
+    /**
+     * 头像
+     */
+    @TableField("AVATAR")
+    private String avatar;
     /**
      * 账号
      */
+    @TableField("ACCOUNT")
     private String account;
     /**
      * 密码
      */
+    @TableField("PASSWORD")
     private String password;
     /**
-     * 密码盐
+     * md5密码盐
      */
+    @TableField("SALT")
     private String salt;
     /**
-     * 电话号码
+     * 名字
      */
-    @TableField("phone_number")
-    private String phoneNumber;
+    @TableField("NAME")
+    private String name;
+    /**
+     * 生日
+     */
+    @TableField("BIRTHDAY")
+    private Date birthday;
+    /**
+     * 性别（M：男 F：女）
+     */
+    @TableField("SEX")
+    private String sex;
     /**
      * 电子邮件
      */
+    @TableField("EMAIL")
     private String email;
     /**
-     * 性别: F-女；M-男
+     * 电话
      */
-    private String sex;
+    @TableField("PHONE")
+    private String phone;
     /**
-     * 状态: 1:启用 0:禁用
+     * 状态(1：启用  2：冻结  3：删除）
      */
+    @TableField("STATUS")
     private Integer status;
-    /**
-     * 用户姓名
-     */
-    @TableField("user_name")
-    private String userName;
     /**
      * 创建时间
      */
-    @TableField("create_time")
+    @TableField(value = "CREATE_TIME", fill = FieldFill.INSERT)
     private Date createTime;
     /**
-     * 修改时间
+     * 更新时间
      */
-    @TableField("update_time")
+    @TableField(value = "UPDATE_TIME", fill = FieldFill.UPDATE)
     private Date updateTime;
 
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getAccount() {
@@ -99,20 +128,20 @@ public class SysUser extends Model<SysUser> {
         this.salt = salt;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getName() {
+        return name;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public Date getBirthday() {
+        return birthday;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
     }
 
     public String getSex() {
@@ -123,20 +152,28 @@ public class SysUser extends Model<SysUser> {
         this.sex = sex;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public Date getCreateTime() {
@@ -156,22 +193,19 @@ public class SysUser extends Model<SysUser> {
     }
 
     @Override
-    protected Serializable pkVal() {
-        return this.id;
-    }
-
-    @Override
     public String toString() {
         return "SysUser{" +
-                "id=" + id +
+                ", userId=" + userId +
+                ", avatar=" + avatar +
                 ", account=" + account +
                 ", password=" + password +
                 ", salt=" + salt +
-                ", phoneNumber=" + phoneNumber +
-                ", email=" + email +
+                ", name=" + name +
+                ", birthday=" + birthday +
                 ", sex=" + sex +
+                ", email=" + email +
+                ", phone=" + phone +
                 ", status=" + status +
-                ", userName=" + userName +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 "}";
