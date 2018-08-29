@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /sso
+
+spring:
+  application:
+    name: guns-sso-server
+  mvc:
+    static-path-pattern: /static/**
+    view:
+      prefix: /WEB-INF/view
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/roses?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    username: root
+    password: root
+  aop:
+    proxy-target-class: true
+
+mybatis-plus:
+  typeAliasesPackage: com.stylefeng.sso.server.modular.entity
+
+logging:
+  level.root: info
+  level.com.stylefeng: debug
+  path: logs/
+  file: guns-sso-server.log
