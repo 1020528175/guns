@@ -5,10 +5,13 @@ import com.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 import com.stylefeng.guns.core.support.HttpKit;
 import com.stylefeng.guns.core.util.MD5Util;
 import com.stylefeng.guns.core.util.ToolUtil;
+import com.stylefeng.sso.plugin.model.LoginUser;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Set;
+
+import static com.stylefeng.sso.plugin.constants.SsoConstants.LOGIN_USER_SESSION;
 
 /**
  * 登录鉴权工具集
@@ -40,9 +43,9 @@ public class AuthKit {
     /**
      * 获取封装的 ShiroUser
      */
-    public static ShiroUser getUser() {
+    public static LoginUser getUser() {
         HttpSession session = HttpKit.getRequest().getSession();
-        return (ShiroUser) session.getAttribute("loginUser");
+        return (LoginUser) session.getAttribute(LOGIN_USER_SESSION);
     }
 
     /**
@@ -52,7 +55,7 @@ public class AuthKit {
      * @return 属于该角色：true，否则false
      */
     public static boolean hasRole(String roleName) {
-        ShiroUser user = getUser();
+        LoginUser user = getUser();
         List<String> roleNames = user.getRoleNames();
         if (roleNames.contains(roleName)) {
             return true;
@@ -78,7 +81,7 @@ public class AuthKit {
      * @return 属于:true,否则false
      */
     public static boolean hasAnyRoles(String roleNames) {
-        ShiroUser user = getUser();
+        LoginUser user = getUser();
         boolean hasAnyRole = false;
         if (user != null && roleNames != null && roleNames.length() > 0) {
             for (String role : roleNames.split(NAMES_DELIMETER)) {
@@ -98,7 +101,7 @@ public class AuthKit {
      * @return 拥有权限：true，否则false
      */
     public static boolean hasPermission(String permission) {
-        ShiroUser user = getUser();
+        LoginUser user = getUser();
         Set<String> permissionSet = user.getPermissionSet();
         if (permissionSet.contains(permission)) {
             return true;

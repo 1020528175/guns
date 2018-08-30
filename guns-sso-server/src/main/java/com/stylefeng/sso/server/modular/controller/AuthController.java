@@ -53,7 +53,7 @@ public class AuthController extends BaseController {
             /**
              * 判断用户账号密码是否正确
              */
-            String userId = authService.checkUserLogin(userName, password);
+            Integer userId = authService.checkUserLogin(userName, password);
             if (userId != null) {
 
                 //如果账号密码正确,跳转回业务系统的url

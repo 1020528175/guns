@@ -44,7 +44,7 @@ public class SimpleAuthServiceImpl implements AuthService {
     private SysUserService sysUserService;
 
     @Override
-    public String checkUserLogin(String userName, String password) {
+    public Integer checkUserLogin(String userName, String password) {
 
         //查询账号是否存在
         SysUser sysUser = null;
@@ -58,14 +58,14 @@ public class SimpleAuthServiceImpl implements AuthService {
         //校验账号密码是否正确
         String md5Hex = MD5Util.encrypt(password + sysUser.getSalt());
         if (md5Hex.equals(sysUser.getPassword())) {
-            return sysUser.getUserId().toString();
+            return sysUser.getUserId();
         } else {
             return null;
         }
     }
 
     @Override
-    public String createToken(String userId) {
+    public String createToken(Integer userId) {
         String token = IdWorker.get32UUID();
         LoginUser loginUserByUserId = this.getLoginUserByUserId(userId);
         cache.put(token, loginUserByUserId);
@@ -88,8 +88,8 @@ public class SimpleAuthServiceImpl implements AuthService {
     }
 
     @Override
-    public LoginUser getLoginUserByUserId(String userId) {
-        return sysUserService.getUserLoginInfo(Long.valueOf(userId));
+    public LoginUser getLoginUserByUserId(Integer userId) {
+        return sysUserService.getUserLoginInfo(userId);
     }
 
     @Override

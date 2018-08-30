@@ -1,7 +1,9 @@
 package com.stylefeng.sso.plugin.interceptor;
 
+import com.stylefeng.sso.plugin.api.AuthApi;
 import com.stylefeng.sso.plugin.cache.ClientCache;
 import com.stylefeng.sso.plugin.constants.SsoConstants;
+import com.stylefeng.sso.plugin.model.LoginUser;
 import com.stylefeng.sso.plugin.properties.SsoProperties;
 import com.stylefeng.sso.plugin.remote.RemoteService;
 import com.stylefeng.sso.plugin.util.HttpUtil;
@@ -24,18 +26,22 @@ import java.io.IOException;
  */
 public class SsoClientInterceptor implements HandlerInterceptor {
 
-    Logger log = LoggerFactory.getLogger(this.getClass());
+    private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    SsoProperties ssoProperties;
+    private SsoProperties ssoProperties;
 
-    ClientCache clientCache;
+    private ClientCache clientCache;
 
-    RemoteService remoteService;
+    private RemoteService remoteService;
 
-    public SsoClientInterceptor(SsoProperties ssoProperties, RemoteService remoteService, ClientCache clientCache) {
+    private AuthApi authApi;
+
+    public SsoClientInterceptor(SsoProperties ssoProperties, RemoteService remoteService,
+                                ClientCache clientCache, AuthApi authApi) {
         this.ssoProperties = ssoProperties;
         this.clientCache = clientCache;
         this.remoteService = remoteService;
+        this.authApi = authApi;
     }
 
     @Override
@@ -54,11 +60,14 @@ public class SsoClientInterceptor implements HandlerInterceptor {
 
             //如果带有token参数,调用远程sso sever方法验证token是否正确
             if (tokenParam != null) {
-                Boolean flag = remoteService.validateToken(tokenParam, HttpUtil.getRequestContextPath(request));
+                Integer userId = remoteService.validateToken(tokenParam, HttpUtil.getRequestContextPath(request));
 
-                if (flag) {
-                    //token验证成功
+                //userId不为空，token验证成功
+                if (userId != null) {
                     session.setAttribute(SsoConstants.SESSION_LOGIN_FLAG, tokenParam);
+
+                    LoginUser loginUser = authApi.getLoginUser(userId);
+                    session.setAttribute(SsoConstants.LOGIN_USER_SESSION, loginUser);
                     return true;
 
                 } else {
@@ -74,7 +83,7 @@ public class SsoClientInterceptor implements HandlerInterceptor {
             }
         } else {
 
-            //如果存在被删除的标记则剔除session
+            //当前用户已登录，如果存在被删除的标记则剔除session
             boolean flag = clientCache.containsInvalidKey(sessionAttribute.toString());
             if (flag) {
                 session.removeAttribute(SsoConstants.SESSION_LOGIN_FLAG);
@@ -84,9 +93,12 @@ public class SsoClientInterceptor implements HandlerInterceptor {
             } else {
 
                 //当前用户已经登录,也需要验证token是否有效
-                Boolean sessionTokenFlag = remoteService.validateToken(sessionAttribute.toString(), HttpUtil.getRequestContextPath(request));
-                if (sessionTokenFlag) {
-                    //token验证成功
+                Integer userId = remoteService.validateToken(sessionAttribute.toString(), HttpUtil.getRequestContextPath(request));
+
+                //userId不为空，token验证成功
+                if (userId != null) {
+                    LoginUser loginUser = authApi.getLoginUser(userId);
+                    session.setAttribute(SsoConstants.LOGIN_USER_SESSION, loginUser);
                     return true;
 
                 } else {

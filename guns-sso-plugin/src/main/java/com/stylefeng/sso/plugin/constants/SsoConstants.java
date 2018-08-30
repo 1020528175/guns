@@ -9,6 +9,11 @@ package com.stylefeng.sso.plugin.constants;
 public interface SsoConstants {
 
     /**
+     * 登录用户的session
+     */
+    String LOGIN_USER_SESSION = "loginUser";
+
+    /**
      * 标记用户是否登录(是否在session中有记录)
      */
     String SESSION_LOGIN_FLAG = "SESSION_LOGIN_FLAG";

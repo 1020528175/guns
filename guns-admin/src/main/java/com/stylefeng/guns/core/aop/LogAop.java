@@ -6,9 +6,9 @@ import com.stylefeng.guns.core.log.LogManager;
 import com.stylefeng.guns.core.log.LogObjectHolder;
 import com.stylefeng.guns.core.log.factory.LogTaskFactory;
 import com.stylefeng.guns.core.shiro.AuthKit;
-import com.stylefeng.guns.core.shiro.ShiroUser;
 import com.stylefeng.guns.core.support.HttpKit;
 import com.stylefeng.guns.core.util.Contrast;
+import com.stylefeng.sso.plugin.model.LoginUser;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -67,7 +67,7 @@ public class LogAop {
         String methodName = currentMethod.getName();
 
         //如果当前用户未登录，不做日志
-        ShiroUser user = AuthKit.getUser();
+        LoginUser user = AuthKit.getUser();
         if (null == user) {
             return;
         }

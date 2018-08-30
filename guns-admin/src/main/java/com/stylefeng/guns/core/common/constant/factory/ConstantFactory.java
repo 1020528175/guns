@@ -28,8 +28,8 @@ import java.util.List;
 @Component
 public class ConstantFactory {
 
-    public static IConstantFactory me() {
-        return (IConstantFactory) SpringContextHolder.getBean(ConstantFactory.class);
+    public static ConstantFactory me() {
+        return SpringContextHolder.getBean(ConstantFactory.class);
     }
 
     /**

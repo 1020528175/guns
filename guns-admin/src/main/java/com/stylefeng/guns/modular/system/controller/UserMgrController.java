@@ -15,7 +15,6 @@ import com.stylefeng.guns.core.db.Db;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.log.LogObjectHolder;
 import com.stylefeng.guns.core.shiro.AuthKit;
-import com.stylefeng.guns.core.shiro.ShiroUser;
 import com.stylefeng.guns.core.util.ToolUtil;
 import com.stylefeng.guns.modular.system.dao.UserMapper;
 import com.stylefeng.guns.modular.system.factory.UserFactory;
@@ -23,6 +22,7 @@ import com.stylefeng.guns.modular.system.model.User;
 import com.stylefeng.guns.modular.system.service.IUserService;
 import com.stylefeng.guns.modular.system.transfer.UserDto;
 import com.stylefeng.guns.modular.system.warpper.UserWarpper;
+import com.stylefeng.sso.plugin.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -218,8 +218,8 @@ public class UserMgrController extends BaseController {
             return SUCCESS_TIP;
         } else {
             assertAuth(user.getId());
-            ShiroUser shiroUser = AuthKit.getUser();
-            if (shiroUser.getId().equals(user.getId())) {
+            LoginUser loginUser = AuthKit.getUser();
+            if (loginUser.getId().equals(user.getId())) {
                 this.userService.updateById(UserFactory.editUser(user, oldUser));
                 return SUCCESS_TIP;
             } else {

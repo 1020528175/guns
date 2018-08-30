@@ -1,15 +1,14 @@
 package com.stylefeng.guns.core.shiro.factory;
 
 import com.stylefeng.guns.core.common.constant.factory.ConstantFactory;
-import com.stylefeng.guns.core.common.constant.state.ManagerStatus;
-import com.stylefeng.guns.core.exception.GunsException;
-import com.stylefeng.guns.core.shiro.ShiroUser;
 import com.stylefeng.guns.core.util.Convert;
 import com.stylefeng.guns.core.util.SpringContextHolder;
 import com.stylefeng.guns.core.util.ToolUtil;
 import com.stylefeng.guns.modular.system.dao.MenuMapper;
 import com.stylefeng.guns.modular.system.dao.UserMapper;
 import com.stylefeng.guns.modular.system.model.User;
+import com.stylefeng.sso.plugin.api.AuthApi;
+import com.stylefeng.sso.plugin.model.LoginUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
@@ -20,13 +19,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static com.stylefeng.guns.core.common.exception.BizExceptionEnum.AUTH_REQUEST_ERROR;
-import static com.stylefeng.guns.core.common.exception.BizExceptionEnum.FREEZED;
-
 @Service
 @DependsOn("springContextHolder")
 @Transactional(readOnly = true)
-public class ShiroFactroy implements IShiro {
+public class AuthApiFactory implements AuthApi {
 
     @Autowired
     private UserMapper userMapper;
@@ -34,45 +30,34 @@ public class ShiroFactroy implements IShiro {
     @Autowired
     private MenuMapper menuMapper;
 
-    public static IShiro me() {
-        return SpringContextHolder.getBean(IShiro.class);
+    public static AuthApi me() {
+        return SpringContextHolder.getBean(AuthApi.class);
     }
 
     @Override
-    public User user(String account) {
-
-        User user = userMapper.getByAccount(account);
-
-        // 账号不存在
-        if (null == user) {
-            throw new GunsException(AUTH_REQUEST_ERROR);
-        }
-        // 账号被冻结
-        if (user.getStatus() != ManagerStatus.OK.getCode()) {
-            throw new GunsException(FREEZED);
-        }
-        return user;
+    public LoginUser getLoginUser(Integer userId) {
+        User user = userMapper.selectById(userId);
+        return shiroUser(user);
     }
 
-    @Override
-    public ShiroUser shiroUser(User user) {
-        ShiroUser shiroUser = new ShiroUser();
+    private LoginUser shiroUser(User user) {
+        LoginUser loginUser = new LoginUser();
 
-        shiroUser.setId(user.getId());
-        shiroUser.setAccount(user.getAccount());
-        shiroUser.setDeptId(user.getDeptid());
-        shiroUser.setDeptName(ConstantFactory.me().getDeptName(user.getDeptid()));
-        shiroUser.setName(user.getName());
+        loginUser.setId(user.getId());
+        loginUser.setAccount(user.getAccount());
+        loginUser.setDeptId(user.getDeptid());
+        loginUser.setDeptName(ConstantFactory.me().getDeptName(user.getDeptid()));
+        loginUser.setName(user.getName());
 
         Integer[] roleArray = Convert.toIntArray(user.getRoleid());
-        List<Integer> roleList = new ArrayList<Integer>();
-        List<String> roleNameList = new ArrayList<String>();
+        List<Integer> roleList = new ArrayList<>();
+        List<String> roleNameList = new ArrayList<>();
         for (int roleId : roleArray) {
             roleList.add(roleId);
-            roleNameList.add(ConstantFactory.me().getSingleRoleName(roleId));
+            roleNameList.add(ConstantFactory.me().getSingleRoleTip(roleId));
         }
-        shiroUser.setRoleList(roleList);
-        shiroUser.setRoleNames(roleNameList);
+        loginUser.setRoleList(roleList);
+        loginUser.setRoleNames(roleNameList);
 
         Set<String> permissionSet = new HashSet<>();
 
@@ -86,9 +71,9 @@ public class ShiroFactroy implements IShiro {
                 }
             }
         }
-        shiroUser.setPermissionSet(permissionSet);
+        loginUser.setPermissionSet(permissionSet);
 
-        return shiroUser;
+        return loginUser;
     }
 
     @Override

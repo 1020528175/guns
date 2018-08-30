@@ -17,10 +17,10 @@ package com.stylefeng.guns.core.shiro.check;
 
 import com.stylefeng.guns.core.listener.ConfigListener;
 import com.stylefeng.guns.core.shiro.AuthKit;
-import com.stylefeng.guns.core.shiro.ShiroUser;
 import com.stylefeng.guns.core.support.CollectionKit;
 import com.stylefeng.guns.core.support.HttpKit;
 import com.stylefeng.guns.core.util.SpringContextHolder;
+import com.stylefeng.sso.plugin.model.LoginUser;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,7 +41,7 @@ public class PermissionCheckFactory implements ICheck {
 
     @Override
     public boolean check(Object[] permissions) {
-        ShiroUser user = AuthKit.getUser();
+        LoginUser user = AuthKit.getUser();
         if (null == user) {
             return false;
         }
@@ -55,7 +55,7 @@ public class PermissionCheckFactory implements ICheck {
     @Override
     public boolean checkAll() {
         HttpServletRequest request = HttpKit.getRequest();
-        ShiroUser user = AuthKit.getUser();
+        LoginUser user = AuthKit.getUser();
         if (null == user) {
             return false;
         }

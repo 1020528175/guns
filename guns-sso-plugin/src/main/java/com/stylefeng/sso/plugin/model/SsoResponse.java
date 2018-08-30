@@ -16,6 +16,11 @@ public class SsoResponse {
     private Integer code;
 
     /**
+     * 用户id
+     */
+    private Integer userId;
+
+    /**
      * 提示信息
      */
     private String message;
@@ -47,5 +52,19 @@ public class SsoResponse {
 
     public static SsoResponse success() {
         return new SsoResponse(ResponseStatus.SUCCESS);
+    }
+
+    public static SsoResponse success(Integer userId) {
+        SsoResponse ssoResponse = new SsoResponse(ResponseStatus.SUCCESS);
+        ssoResponse.setUserId(userId);
+        return ssoResponse;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

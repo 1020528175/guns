@@ -10,6 +10,7 @@ import com.google.code.kaptcha.util.Config;
 import com.stylefeng.guns.config.properties.GunsProperties;
 import com.stylefeng.guns.core.listener.ConfigListener;
 import com.stylefeng.guns.core.xss.XssFilter;
+import com.stylefeng.sso.plugin.api.AuthApi;
 import com.stylefeng.sso.plugin.cache.ClientCache;
 import com.stylefeng.sso.plugin.interceptor.SsoClientInterceptor;
 import com.stylefeng.sso.plugin.properties.SsoProperties;
@@ -51,6 +52,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Autowired
     private ClientCache clientCache;
 
+    @Autowired
+    private AuthApi authApi;
+
     /**
      * 配置sso
      */
@@ -71,7 +75,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(
-                new SsoClientInterceptor(ssoProperties(), remoteService(), clientCache))
+                new SsoClientInterceptor(ssoProperties(), remoteService(), clientCache, authApi))
                 .addPathPatterns("/**")
                 .excludePathPatterns("/static/**", "/global/sessionError", "/gunsApi/**", "/global/sessionError", "/kaptcha");
     }

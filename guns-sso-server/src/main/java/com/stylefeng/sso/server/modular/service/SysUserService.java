@@ -21,7 +21,7 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
     /**
      * 根据用户id获取用户信息
      */
-    public LoginUser getUserLoginInfo(Long userId) {
+    public LoginUser getUserLoginInfo(Integer userId) {
 
         SysUser sysUser = this.selectById(userId);
 
@@ -32,9 +32,6 @@ public class SysUserService extends ServiceImpl<SysUserMapper, SysUser> {
         LoginUser loginUser = new LoginUser();
         loginUser.setId(sysUser.getUserId());
         loginUser.setAccount(sysUser.getAccount());
-        loginUser.setEmail(sysUser.getEmail());
-        loginUser.setPhoneNumber(sysUser.getPhone());
-        loginUser.setStatus(sysUser.getStatus());
         return loginUser;
     }
 

@@ -27,13 +27,18 @@ public class RemoteService {
     /**
      * 请求sso server,验证token是否正确
      */
-    public Boolean validateToken(String token, String clientAddr) {
+    public Integer validateToken(String token, String clientAddr) {
         String ssoUrl = ssoProperties.getServerUrl() + SsoApi.AUTH_TOKEN_URL + "?" + SsoConstants.TOKEN_PARAM_NAME + "=" + token + "&" + SsoConstants.CLIENT_REQUEST_ADDR_PARAM_NAME + "=" + clientAddr;
         SsoResponse ssoResponse = restTemplate.postForObject(ssoUrl, null, SsoResponse.class);
-        if (ssoResponse.getCode().equals(ResponseStatus.SUCCESS.getCode())) {
-            return true;
+
+        if (ssoResponse == null) {
+            return null;
         } else {
-            return false;
+            if (ResponseStatus.SUCCESS.getCode().equals(ssoResponse.getCode())) {
+                return ssoResponse.getUserId();
+            } else {
+                return null;
+            }
         }
     }
 }

@@ -19,7 +19,7 @@ public interface AuthService {
      * @author stylefeng
      * @Date 2018/2/3 22:58
      */
-    String checkUserLogin(String userName, String password);
+    Integer checkUserLogin(String userName, String password);
 
     /**
      * 创建授权令牌
@@ -27,7 +27,7 @@ public interface AuthService {
      * @author stylefeng
      * @Date 2018/2/3 23:13
      */
-    String createToken(String userId);
+    String createToken(Integer userId);
 
     /**
      * 验证token是否正确(true-验证成功,false-验证失败)
@@ -51,7 +51,7 @@ public interface AuthService {
      * @author stylefeng
      * @Date 2018/2/4 10:52
      */
-    LoginUser getLoginUserByUserId(String userId);
+    LoginUser getLoginUserByUserId(Integer userId);
 
     /**
      * 记录哪些客户端在服务端进行过校验

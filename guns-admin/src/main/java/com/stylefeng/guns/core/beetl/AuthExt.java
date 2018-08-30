@@ -1,7 +1,7 @@
 package com.stylefeng.guns.core.beetl;
 
 import com.stylefeng.guns.core.shiro.AuthKit;
-import com.stylefeng.guns.core.shiro.ShiroUser;
+import com.stylefeng.sso.plugin.model.LoginUser;
 
 /**
  * 供给beetl用的鉴权工具
@@ -14,7 +14,7 @@ public class AuthExt {
     /**
      * 获取封装的 ShiroUser
      */
-    public ShiroUser getUser() {
+    public LoginUser getUser() {
         return AuthKit.getUser();
     }
 

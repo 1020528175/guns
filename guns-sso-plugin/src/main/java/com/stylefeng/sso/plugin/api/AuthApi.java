@@ -1,7 +1,6 @@
-package com.stylefeng.guns.core.shiro.factory;
+package com.stylefeng.sso.plugin.api;
 
-import com.stylefeng.guns.core.shiro.ShiroUser;
-import com.stylefeng.guns.modular.system.model.User;
+import com.stylefeng.sso.plugin.model.LoginUser;
 
 import java.util.List;
 
@@ -11,21 +10,14 @@ import java.util.List;
  * @author fengshuonan
  * @date 2016年12月5日 上午10:23:34
  */
-public interface IShiro {
-
-    /**
-     * 根据账号获取登录用户
-     *
-     * @param account 账号
-     */
-    User user(String account);
+public interface AuthApi {
 
     /**
      * 根据系统用户获取Shiro的用户
      *
-     * @param user 系统用户
+     * @param userId 用户id
      */
-    ShiroUser shiroUser(User user);
+    LoginUser getLoginUser(Integer userId);
 
     /**
      * 获取权限列表通过角色id

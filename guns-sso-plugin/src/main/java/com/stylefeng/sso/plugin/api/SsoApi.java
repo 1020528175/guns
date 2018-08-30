@@ -2,6 +2,7 @@ package com.stylefeng.sso.plugin.api;
 
 import com.stylefeng.sso.plugin.cache.ClientCache;
 import com.stylefeng.sso.plugin.constants.SsoConstants;
+import com.stylefeng.sso.plugin.model.LoginUser;
 import com.stylefeng.sso.plugin.model.SsoResponse;
 import com.stylefeng.sso.plugin.model.enums.ResponseStatus;
 import com.stylefeng.sso.plugin.service.AuthService;
@@ -36,8 +37,10 @@ public class SsoApi {
         String clientAddr = request.getParameter(SsoConstants.CLIENT_REQUEST_ADDR_PARAM_NAME);
 
         boolean flag = authService.checkToken(request, token, clientAddr);
+
         if (flag) {
-            return SsoResponse.success();
+            LoginUser loginUser = authService.getLoginUserByToken(token);
+            return SsoResponse.success(loginUser.getId());
         } else {
             return new SsoResponse(ResponseStatus.WRONG_TOKEN);
         }
