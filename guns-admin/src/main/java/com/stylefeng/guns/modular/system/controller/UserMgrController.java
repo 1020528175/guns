@@ -14,7 +14,7 @@ import com.stylefeng.guns.core.datascope.DataScope;
 import com.stylefeng.guns.core.db.Db;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.log.LogObjectHolder;
-import com.stylefeng.guns.core.shiro.ShiroKit;
+import com.stylefeng.guns.core.shiro.AuthKit;
 import com.stylefeng.guns.core.shiro.ShiroUser;
 import com.stylefeng.guns.core.util.ToolUtil;
 import com.stylefeng.guns.modular.system.dao.UserMapper;
@@ -111,7 +111,7 @@ public class UserMgrController extends BaseController {
      */
     @RequestMapping("/user_info")
     public String userInfo(Model model) {
-        Integer userId = ShiroKit.getUser().getId();
+        Integer userId = AuthKit.getUser().getId();
         if (ToolUtil.isEmpty(userId)) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
@@ -140,11 +140,11 @@ public class UserMgrController extends BaseController {
         if (!newPwd.equals(rePwd)) {
             throw new GunsException(BizExceptionEnum.TWO_PWD_NOT_MATCH);
         }
-        Integer userId = ShiroKit.getUser().getId();
+        Integer userId = AuthKit.getUser().getId();
         User user = userService.selectById(userId);
-        String oldMd5 = ShiroKit.md5(oldPwd, user.getSalt());
+        String oldMd5 = AuthKit.md5(oldPwd, user.getSalt());
         if (user.getPassword().equals(oldMd5)) {
-            String newMd5 = ShiroKit.md5(newPwd, user.getSalt());
+            String newMd5 = AuthKit.md5(newPwd, user.getSalt());
             user.setPassword(newMd5);
             user.updateById();
             return SUCCESS_TIP;
@@ -160,11 +160,11 @@ public class UserMgrController extends BaseController {
     @Permission
     @ResponseBody
     public Object list(@RequestParam(required = false) String name, @RequestParam(required = false) String beginTime, @RequestParam(required = false) String endTime, @RequestParam(required = false) Integer deptid) {
-        if (ShiroKit.isAdmin()) {
+        if (AuthKit.isAdmin()) {
             List<Map<String, Object>> users = userService.selectUsers(null, name, beginTime, endTime, deptid);
             return new UserWarpper(users).warp();
         } else {
-            DataScope dataScope = new DataScope(ShiroKit.getDeptDataScope());
+            DataScope dataScope = new DataScope(AuthKit.getDeptDataScope());
             List<Map<String, Object>> users = userService.selectUsers(dataScope, name, beginTime, endTime, deptid);
             return new UserWarpper(users).warp();
         }
@@ -189,8 +189,8 @@ public class UserMgrController extends BaseController {
         }
 
         // 完善账号信息
-        user.setSalt(ShiroKit.getRandomSalt(5));
-        user.setPassword(ShiroKit.md5(user.getPassword(), user.getSalt()));
+        user.setSalt(AuthKit.getRandomSalt(5));
+        user.setPassword(AuthKit.md5(user.getPassword(), user.getSalt()));
         user.setStatus(ManagerStatus.OK.getCode());
         user.setCreatetime(new Date());
 
@@ -213,12 +213,12 @@ public class UserMgrController extends BaseController {
 
         User oldUser = userService.selectById(user.getId());
 
-        if (ShiroKit.hasRole(Const.ADMIN_NAME)) {
+        if (AuthKit.hasRole(Const.ADMIN_NAME)) {
             this.userService.updateById(UserFactory.editUser(user, oldUser));
             return SUCCESS_TIP;
         } else {
             assertAuth(user.getId());
-            ShiroUser shiroUser = ShiroKit.getUser();
+            ShiroUser shiroUser = AuthKit.getUser();
             if (shiroUser.getId().equals(user.getId())) {
                 this.userService.updateById(UserFactory.editUser(user, oldUser));
                 return SUCCESS_TIP;
@@ -274,8 +274,8 @@ public class UserMgrController extends BaseController {
         }
         assertAuth(userId);
         User user = this.userService.selectById(userId);
-        user.setSalt(ShiroKit.getRandomSalt(5));
-        user.setPassword(ShiroKit.md5(Const.DEFAULT_PWD, user.getSalt()));
+        user.setSalt(AuthKit.getRandomSalt(5));
+        user.setPassword(AuthKit.md5(Const.DEFAULT_PWD, user.getSalt()));
         this.userService.updateById(user);
         return SUCCESS_TIP;
     }
@@ -357,10 +357,10 @@ public class UserMgrController extends BaseController {
      * 判断当前登录的用户是否有操作这个用户的权限
      */
     private void assertAuth(Integer userId) {
-        if (ShiroKit.isAdmin()) {
+        if (AuthKit.isAdmin()) {
             return;
         }
-        List<Integer> deptDataScope = ShiroKit.getDeptDataScope();
+        List<Integer> deptDataScope = AuthKit.getDeptDataScope();
         User user = this.userService.selectById(userId);
         Integer deptid = user.getDeptid();
         if (deptDataScope.contains(deptid)) {

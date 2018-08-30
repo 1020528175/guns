@@ -5,7 +5,7 @@ import com.stylefeng.guns.core.common.constant.dictmap.base.AbstractDictMap;
 import com.stylefeng.guns.core.log.LogManager;
 import com.stylefeng.guns.core.log.LogObjectHolder;
 import com.stylefeng.guns.core.log.factory.LogTaskFactory;
-import com.stylefeng.guns.core.shiro.ShiroKit;
+import com.stylefeng.guns.core.shiro.AuthKit;
 import com.stylefeng.guns.core.shiro.ShiroUser;
 import com.stylefeng.guns.core.support.HttpKit;
 import com.stylefeng.guns.core.util.Contrast;
@@ -67,7 +67,7 @@ public class LogAop {
         String methodName = currentMethod.getName();
 
         //如果当前用户未登录，不做日志
-        ShiroUser user = ShiroKit.getUser();
+        ShiroUser user = AuthKit.getUser();
         if (null == user) {
             return;
         }

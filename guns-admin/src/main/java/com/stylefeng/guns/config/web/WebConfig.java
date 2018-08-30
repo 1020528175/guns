@@ -8,7 +8,6 @@ import com.alibaba.druid.support.spring.stat.DruidStatInterceptor;
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;
 import com.stylefeng.guns.config.properties.GunsProperties;
-import com.stylefeng.guns.core.intercept.RestApiInteceptor;
 import com.stylefeng.guns.core.listener.ConfigListener;
 import com.stylefeng.guns.core.xss.XssFilter;
 import com.stylefeng.sso.plugin.cache.ClientCache;
@@ -71,8 +70,10 @@ public class WebConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new SsoClientInterceptor(ssoProperties(), remoteService(), clientCache)).addPathPatterns("/**").excludePathPatterns("/static/**");
-        registry.addInterceptor(new RestApiInteceptor()).addPathPatterns("/gunsApi/**");
+        registry.addInterceptor(
+                new SsoClientInterceptor(ssoProperties(), remoteService(), clientCache))
+                .addPathPatterns("/**")
+                .excludePathPatterns("/static/**", "/global/sessionError", "/gunsApi/**", "/global/sessionError", "/kaptcha");
     }
 
     /**
@@ -124,7 +125,6 @@ public class WebConfig implements WebMvcConfigurer {
     public JdkRegexpMethodPointcut druidStatPointcut() {
         JdkRegexpMethodPointcut druidStatPointcut = new JdkRegexpMethodPointcut();
         String patterns = "com.stylefeng.guns.modular.*.service.*";
-        //可以set多个
         druidStatPointcut.setPatterns(patterns);
         return druidStatPointcut;
     }

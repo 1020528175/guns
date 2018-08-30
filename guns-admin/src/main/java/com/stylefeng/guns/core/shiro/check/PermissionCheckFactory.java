@@ -16,7 +16,7 @@
 package com.stylefeng.guns.core.shiro.check;
 
 import com.stylefeng.guns.core.listener.ConfigListener;
-import com.stylefeng.guns.core.shiro.ShiroKit;
+import com.stylefeng.guns.core.shiro.AuthKit;
 import com.stylefeng.guns.core.shiro.ShiroUser;
 import com.stylefeng.guns.core.support.CollectionKit;
 import com.stylefeng.guns.core.support.HttpKit;
@@ -41,12 +41,12 @@ public class PermissionCheckFactory implements ICheck {
 
     @Override
     public boolean check(Object[] permissions) {
-        ShiroUser user = ShiroKit.getUser();
+        ShiroUser user = AuthKit.getUser();
         if (null == user) {
             return false;
         }
         String join = CollectionKit.join(permissions, ",");
-        if (ShiroKit.hasAnyRoles(join)) {
+        if (AuthKit.hasAnyRoles(join)) {
             return true;
         }
         return false;
@@ -55,7 +55,7 @@ public class PermissionCheckFactory implements ICheck {
     @Override
     public boolean checkAll() {
         HttpServletRequest request = HttpKit.getRequest();
-        ShiroUser user = ShiroKit.getUser();
+        ShiroUser user = AuthKit.getUser();
         if (null == user) {
             return false;
         }
@@ -64,7 +64,7 @@ public class PermissionCheckFactory implements ICheck {
         if (str.length > 3) {
             requestURI = "/" + str[1] + "/" + str[2];
         }
-        if (ShiroKit.hasPermission(requestURI)) {
+        if (AuthKit.hasPermission(requestURI)) {
             return true;
         }
         return false;

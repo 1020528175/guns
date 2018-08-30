@@ -35,7 +35,7 @@ public class BeetlConfiguration extends BeetlGroupUtilConfiguration {
 
     @Override
     public void initOther() {
-        groupTemplate.registerFunctionPackage("shiro", new ShiroExt());
+        groupTemplate.registerFunctionPackage("shiro", new AuthExt());
         groupTemplate.registerFunctionPackage("tool", new ToolUtil());
         groupTemplate.registerFunctionPackage("kaptcha", new KaptchaUtil());
         groupTemplate.registerTagFactory("dictSelector", new TagFactory() {

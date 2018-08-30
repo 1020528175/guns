@@ -16,7 +16,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * auth服务接口最简单实现
@@ -29,7 +33,7 @@ public class SimpleAuthServiceImpl implements AuthService {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    private Map<String, Object> cache = new HashMap<>();
+    private Map<String, Object> cache = new ConcurrentHashMap<>();
 
     private Set<String> ssoClients = new HashSet<>();
 

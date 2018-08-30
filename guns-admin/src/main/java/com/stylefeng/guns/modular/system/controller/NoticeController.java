@@ -7,7 +7,7 @@ import com.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 import com.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.log.LogObjectHolder;
-import com.stylefeng.guns.core.shiro.ShiroKit;
+import com.stylefeng.guns.core.shiro.AuthKit;
 import com.stylefeng.guns.core.util.ToolUtil;
 import com.stylefeng.guns.modular.system.model.Notice;
 import com.stylefeng.guns.modular.system.service.INoticeService;
@@ -96,7 +96,7 @@ public class NoticeController extends BaseController {
         if (ToolUtil.isOneEmpty(notice, notice.getTitle(), notice.getContent())) {
             throw new GunsException(BizExceptionEnum.REQUEST_NULL);
         }
-        notice.setCreater(ShiroKit.getUser().getId());
+        notice.setCreater(AuthKit.getUser().getId());
         notice.setCreatetime(new Date());
         notice.insert();
         return SUCCESS_TIP;

@@ -2,24 +2,26 @@ package com.stylefeng.guns.core.shiro.factory;
 
 import com.stylefeng.guns.core.common.constant.factory.ConstantFactory;
 import com.stylefeng.guns.core.common.constant.state.ManagerStatus;
+import com.stylefeng.guns.core.exception.GunsException;
 import com.stylefeng.guns.core.shiro.ShiroUser;
 import com.stylefeng.guns.core.util.Convert;
 import com.stylefeng.guns.core.util.SpringContextHolder;
+import com.stylefeng.guns.core.util.ToolUtil;
 import com.stylefeng.guns.modular.system.dao.MenuMapper;
 import com.stylefeng.guns.modular.system.dao.UserMapper;
 import com.stylefeng.guns.modular.system.model.User;
-import org.apache.shiro.authc.CredentialsException;
-import org.apache.shiro.authc.LockedAccountException;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.crypto.hash.Md5Hash;
-import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+
+import static com.stylefeng.guns.core.common.exception.BizExceptionEnum.AUTH_REQUEST_ERROR;
+import static com.stylefeng.guns.core.common.exception.BizExceptionEnum.FREEZED;
 
 @Service
 @DependsOn("springContextHolder")
@@ -43,11 +45,11 @@ public class ShiroFactroy implements IShiro {
 
         // 账号不存在
         if (null == user) {
-            throw new CredentialsException();
+            throw new GunsException(AUTH_REQUEST_ERROR);
         }
         // 账号被冻结
         if (user.getStatus() != ManagerStatus.OK.getCode()) {
-            throw new LockedAccountException();
+            throw new GunsException(FREEZED);
         }
         return user;
     }
@@ -72,6 +74,20 @@ public class ShiroFactroy implements IShiro {
         shiroUser.setRoleList(roleList);
         shiroUser.setRoleNames(roleNameList);
 
+        Set<String> permissionSet = new HashSet<>();
+
+        for (Integer roleId : roleList) {
+            List<String> permissions = this.findPermissionsByRoleId(roleId);
+            if (permissions != null) {
+                for (String permission : permissions) {
+                    if (ToolUtil.isNotEmpty(permission)) {
+                        permissionSet.add(permission);
+                    }
+                }
+            }
+        }
+        shiroUser.setPermissionSet(permissionSet);
+
         return shiroUser;
     }
 
@@ -83,16 +99,6 @@ public class ShiroFactroy implements IShiro {
     @Override
     public String findRoleNameByRoleId(Integer roleId) {
         return ConstantFactory.me().getSingleRoleTip(roleId);
-    }
-
-    @Override
-    public SimpleAuthenticationInfo info(ShiroUser shiroUser, User user, String realmName) {
-        String credentials = user.getPassword();
-
-        // 密码加盐处理
-        String source = user.getSalt();
-        ByteSource credentialsSalt = new Md5Hash(source);
-        return new SimpleAuthenticationInfo(shiroUser, credentials, credentialsSalt, realmName);
     }
 
 }
