@@ -1,6 +1,5 @@
 package com.stylefeng.sso.client.auth;
 
-import com.stylefeng.guns.core.util.SpringContextHolder;
 import com.stylefeng.sso.plugin.api.AuthApi;
 import com.stylefeng.sso.plugin.model.LoginUser;
 import org.springframework.stereotype.Service;
@@ -16,10 +15,6 @@ import java.util.List;
  */
 @Service
 public class AuthApiFactory implements AuthApi {
-
-    public static AuthApi me() {
-        return SpringContextHolder.getBean(AuthApi.class);
-    }
 
     @Override
     public LoginUser getLoginUser(Integer userId) {
