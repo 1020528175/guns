@@ -6,6 +6,8 @@ server:
 spring:
   application:
     name: guns-sso-server
+  profiles:
+    active: local
   mvc:
     static-path-pattern: /static/**
     view:

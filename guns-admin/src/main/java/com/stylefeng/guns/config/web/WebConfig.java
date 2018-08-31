@@ -77,7 +77,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(
                 new SsoClientInterceptor(ssoProperties(), remoteService(), clientCache, authApi))
                 .addPathPatterns("/**")
-                .excludePathPatterns("/static/**", "/global/sessionError", "/gunsApi/**", "/global/sessionError", "/kaptcha");
+                .excludePathPatterns("/gunsApi/**", "/static/**", "/global/sessionError", "/global/sessionError", "/kaptcha");
     }
 
     /**

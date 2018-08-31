@@ -10,11 +10,13 @@
 
     <modules>
         <module>guns-admin</module>
+        <module>guns-admin</module>
         <module>guns-core</module>
         <module>guns-rest</module>
         <module>guns-generator</module>
         <module>guns-sso-plugin</module>
         <module>guns-sso-server</module>
+        <module>guns-example-client</module>
     </modules>
 
     <parent>
