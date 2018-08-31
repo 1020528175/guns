@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: sso-client
+  profiles:
+    active: local
   aop:
     proxy-target-class: true
   mvc:
