@@ -27,7 +27,7 @@ Guns框架有作者在业余时间录制的视频教程，详情点击[教程介
 #### 4.执行guns-admin模块下的GunsApplication类下的main方法，启动guns-admin后台管理系统
 #### 5.执行guns-example-client模块下的SsoClientExampleApplication类下的main方法，启动单点登陆客户端的演示程序，其实guns-admin也是一个单点登陆客户端
 #### 6.打开[localhost:8080](localhost:8080)准备登陆进guns系统，系统会自动跳转到sso服务器，数据默认账号密码：admin/admin，系统登陆guns管理系统成功
-#### 7.打开[localhost:8081](localhost:8081)准备进入论坛，系统不会跳转到登陆，直接进入论坛，单点登陆演示成功！
+#### 7.打开[localhost:8081](localhost:8081)准备进入论坛，系统不会跳转到登陆，直接进入论坛，单点登陆成功！
 
 ## 管理系统功能
 1.用户管理 2.角色管理 3.部门管理 4.菜单管理 5.字典管理 6.业务日志 7.登录日志 8.监控管理 9.通知管理 10.代码生成
