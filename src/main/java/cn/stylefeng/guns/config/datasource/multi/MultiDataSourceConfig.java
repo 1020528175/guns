@@ -100,6 +100,8 @@ public class MultiDataSourceConfig {
         atomikosDataSourceBean.setXaDataSourceClassName("com.alibaba.druid.pool.xa.DruidXADataSource");
         atomikosDataSourceBean.setUniqueResourceName(dataSourceName);
         atomikosDataSourceBean.setXaProperties(druidProperties.createProperties());
+        atomikosDataSourceBean.setMaxLifetime(30);
+        atomikosDataSourceBean.setMaxIdleTime(30);
         return atomikosDataSourceBean;
     }
 }

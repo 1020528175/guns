@@ -6,6 +6,8 @@ spring:
     password: root
     filters: wall,mergeStat
     data-source-name: gunsdb
+    test-on-borrow: true
+    test-on-return: true
 
 #多数据源情况的配置
 guns:
@@ -16,3 +18,5 @@ guns:
     username: root
     password: root
     data-source-name: otherdb
+    test-on-borrow: true
+    test-on-return: true
